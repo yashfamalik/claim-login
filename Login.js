@@ -2,7 +2,7 @@
   const subscribers = new Set();
   const state = {
     colorSettings: {
-      buttonBg: "#222",
+      buttonBg: "#fff",
       buttonText: "#fff",
       cardBg: "#fff",
       gradientStart: "#72d9a3",
@@ -14,15 +14,31 @@
 
   function notify() { subscribers.forEach(fn => { try { fn({ ...state }); } catch(_){} }); }
 
-  const proxy = {
-    colorSettings(patch) { // backward-compatible method name
-      state.colorSettings = { ...state.colorSettings, ...patch };
-      notify();
-    },
-    setColorSettings(patch) { this.colorSettings(patch); }, // alias
-    getColorSettings() { return { ...state.colorSettings }; },
-    subscribe(fn) { subscribers.add(fn); return () => subscribers.delete(fn); }
-  };
+// Inside Login.js
+const proxy = {
+  // Your proxy properties and methods
+  getContentSettings: () => {},
+  updateColorSettings: (newSettings) => {
+    // Update the UI or state when settings change
+    console.log("Settings updated:", newSettings);
+  },
+  subscribe: (callback) => {
+    // Allow subscribing to changes
+    const subscribers = [];
+    subscribers.push(callback);
+    return () => subscribers.filter(sub => sub !== callback);
+  },
+};
+
+// Make the proxy globally accessible
+window.ClaimLogin = {
+  proxy,
+  mount: (el) => {
+    // Mount the login component to the DOM element
+    el.innerHTML = "<h1>Login Component Mounted</h1>";
+  },
+};
+
 
   function render(el) {
     const c = state.colorSettings;
