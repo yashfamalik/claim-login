@@ -3,7 +3,7 @@
     if (document.getElementById("cf-login-style")) return;
     const css = `
     :root{
-    --claim-card-bg:#ffffff;
+    --claim-card-bg:#000000;
     --claim-card-gradient-start:#2196f3;
     --claim-card-gradient-end:#00bcd4;
     --claim-use-gradient:false;
