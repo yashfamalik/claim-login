@@ -1,19 +1,19 @@
 // Claim Login Form - Auto Initialize with Proxy Support
+
 const ClaimLoginForm = {
   // Configuration
   config: {
-    styleId: 'claim-form-styles',
-    containerId: 'claim-login-container',
-    cssPrefix: 'clm-',
+    styleId: "claim-form-styles",
+    containerId: "claim-login-container",
     defaults: {
-      heading: 'File Claim',
-      emailLabel: 'Email',
-      orderLabel: 'Order number',
-      emailPlaceholder: 'your@email.com',
-      orderPlaceholder: 'e.g. #1234',
-      buttonText: 'Find Order',
-      errorMessage: 'Please enter both email and order number.'
-    }
+      heading: "File Claim",
+      emailLabel: "Email",
+      orderLabel: "Order number",
+      emailPlaceholder: "your@email.com",
+      orderPlaceholder: "e.g. #1234",
+      buttonText: "Find Order",
+      errorMessage: "Please enter both email and order number.",
+    },
   },
 
   // Proxy system for settings management
@@ -28,25 +28,27 @@ const ClaimLoginForm = {
     },
 
     notify() {
-      this.subscribers.forEach(callback => {
+      this.subscribers.forEach((callback) => {
         callback({
           contentSettings: this.contentSettings,
-          colorSettings: this.colorSettings
+          colorSettings: this.colorSettings,
         });
       });
     },
 
     updateContentSettings(settings) {
-      this.contentSettings = typeof settings === 'function' 
-        ? settings(this.contentSettings) 
-        : { ...this.contentSettings, ...settings };
+      this.contentSettings =
+        typeof settings === "function"
+          ? settings(this.contentSettings)
+          : { ...this.contentSettings, ...settings };
       this.notify();
     },
 
     updateColorSettings(settings) {
-      this.colorSettings = typeof settings === 'function' 
-        ? settings(this.colorSettings) 
-        : { ...this.colorSettings, ...settings };
+      this.colorSettings =
+        typeof settings === "function"
+          ? settings(this.colorSettings)
+          : { ...this.colorSettings, ...settings };
       this.notify();
     },
 
@@ -56,177 +58,186 @@ const ClaimLoginForm = {
 
     getColorSettings() {
       return this.colorSettings;
-    }
+    },
   },
 
   // Inject CSS styles once
   injectStyles() {
     if (document.getElementById(this.config.styleId)) return;
-    
-    const styles = `
-      :root {
-        --clm-card-bg: #ffffff;
-        --clm-gradient-start: #2196f3;
-        --clm-gradient-end: #00bcd4;
-        --clm-button-bg: #2196f3;
-        --clm-button-text: #ffffff;
-        --clm-heading-text: #202223;
-        --clm-label-text: #202223;
-      }
 
-      .${this.config.cssPrefix}wrapper {
-        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-        width: 100%;
-        min-height: 100vh;
-        background: #f5f7fb;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0;
-        padding: 24px;
-        box-sizing: border-box;
-      }
-      
-      .${this.config.cssPrefix}container {
-        width: 100%;
-        max-width: 420px;
-        background: var(--clm-card-bg);
-        border-radius: 12px;
-        border: 1px solid rgba(0,0,0,0.08);
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-        padding: 2rem;
-        box-sizing: border-box;
-      }
+    const CSS = `
+        :root {
+          --clm-card-bg: #ffffff;
+          --clm-gradient-start: #2196f3;
+          --clm-gradient-end: #00bcd4;
+          --clm-button-bg: #333333;
+          --clm-button-text: #ffffff;
+          --clm-heading-text: #333333;
+          --clm-label-text: #666666;
+        }
 
-      .${this.config.cssPrefix}container.gradient {
-        background: linear-gradient(90deg, var(--clm-gradient-start), var(--clm-gradient-end));
-      }
-      
-      .${this.config.cssPrefix}form {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-      }
-      
-      .${this.config.cssPrefix}heading {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: var(--clm-heading-text);
-        text-align: center;
-        margin: 0;
-      }
-      
-      .${this.config.cssPrefix}fields {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-      
-      .${this.config.cssPrefix}label {
-        display: block;
-        margin-bottom: 0.5rem;
-        color: var(--clm-label-text);
-        font-weight: 500;
-        font-size: 0.875rem;
-      }
-      
-      .${this.config.cssPrefix}input {
-        width: 100%;
-        padding: 0.75rem 1rem;
-        border: 1px solid #d1d5db;
-        border-radius: 0.5rem;
-        background: #ffffff;
-        color: #111827;
-        font-size: 1rem;
-        box-sizing: border-box;
-        transition: border-color 0.15s ease, box-shadow 0.15s ease;
-      }
-      
-      .${this.config.cssPrefix}input:focus {
-        outline: none;
-        border-color: #2196f3;
-        box-shadow: 0 0 0 3px rgba(33,150,243,0.1);
-      }
-      
-      .${this.config.cssPrefix}error {
-        display: none;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        background: #fef2f2;
-        color: #dc2626;
-        border: 1px solid #fecaca;
-        font-size: 0.875rem;
-        align-items: center;
-        gap: 0.5rem;
-      }
-      
-      .${this.config.cssPrefix}error.show {
-        display: flex;
-      }
-      
-      .${this.config.cssPrefix}button {
-        width: 100%;
-        padding: 0.75rem 1rem;
-        border: none;
-        border-radius: 0.5rem;
-        background: var(--clm-button-bg);
-        color: var(--clm-button-text);
-        cursor: pointer;
-        font-weight: 500;
-        font-size: 1rem;
-        transition: all 0.15s ease;
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
-      }
-      
-      .${this.config.cssPrefix}button:hover {
-        opacity: 0.9;
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-      }
-      
-      .${this.config.cssPrefix}button:active {
-        opacity: 0.85;
-        transform: translateY(1px);
-      }
-    `;
-    
-    const styleElement = document.createElement('style');
+        .clm-wrapper {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+          width: 100%;
+          min-height: 80vh;
+          background: #f8f9fa;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0;
+          box-sizing: border-box;
+        }
+        
+        .clm-container {
+          width: 100%;
+          max-width: 370px;
+          background: var(--clm-card-bg);
+          padding: 1em;
+          box-sizing: border-box;
+          border-radius: 12px;
+          border: 1px solid #ebebeb;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); 
+        }
+
+        .clm-container.gradient {
+          background: linear-gradient(90deg, var(--clm-gradient-start), var(--clm-gradient-end));
+        }
+        
+        .clm-form {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+        
+        .clm-heading {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: var(--clm-heading-text);
+          text-align: left;
+          margin: 0;
+          word-wrap: break-word;
+          letter-spacing: -0.025em;
+        }
+        
+        .clm-fields {
+          display: flex;
+          flex-direction: column;
+          gap:  0.5rem;
+        }
+        
+        .clm-label {
+          display: block;
+          color: var(--clm-label-text);
+          font-weight: 500;
+          font-size: 0.875rem;
+        }
+        
+        .clm-input {
+          width: 100%;
+          padding:0.5rem 0.75rem;
+          border: 1px solid #e1e5e9;
+          border-radius: 0.375rem;
+          background: #ffffff;
+          color: #333333;
+          font-size: 1rem;
+          box-sizing: border-box;
+          transition: all 0.2s ease;
+          font-family: inherit;
+        }
+        
+        .clm-input::placeholder {
+          color: #9ca3af;
+        }
+        
+        .clm-input:focus {
+          outline: none;
+          border-color: #d1d5db;
+          box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+        }
+        
+        .clm-error {
+          display: none;
+          border-radius: 8px;
+          padding: 0.875rem;
+          background: #fef2f2;
+          color: #dc2626;
+          border: 1px solid #fecaca;
+          font-size: 0.875rem;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        
+        .clm-error.show {
+          display: flex;
+        }
+        
+        .clm-button {
+          width: 100%;
+          padding:0.5rem 0.75rem;
+          border: none;
+          border-radius: 0.375rem;
+          background: var(--clm-button-bg);
+          color: var(--clm-button-text);
+          cursor: pointer;
+          font-weight: 500;
+          font-size: 1rem;
+          transition: all 0.2s ease;
+          font-family: inherit;
+        }
+        
+        .clm-button:hover {
+          background: #222222;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .clm-button:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+      `;
+
+    const styleElement = document.createElement("style");
     styleElement.id = this.config.styleId;
-    styleElement.textContent = styles;
+    styleElement.textContent = CSS;
     document.head.appendChild(styleElement);
   },
 
   // Apply color settings to CSS variables
   applyColorSettings(colorSettings) {
     if (!colorSettings) return;
-    
+
     const root = document.documentElement;
-    const container = document.querySelector(`.${this.config.cssPrefix}container`);
-    
+    const container = document.querySelector(`.clm-container`);
+
     if (colorSettings.cardBg) {
-      root.style.setProperty('--clm-card-bg', colorSettings.cardBg);
+      root.style.setProperty("--clm-card-bg", colorSettings.cardBg);
     }
     if (colorSettings.gradientStart) {
-      root.style.setProperty('--clm-gradient-start', colorSettings.gradientStart);
+      root.style.setProperty(
+        "--clm-gradient-start",
+        colorSettings.gradientStart
+      );
     }
     if (colorSettings.gradientEnd) {
-      root.style.setProperty('--clm-gradient-end', colorSettings.gradientEnd);
+      root.style.setProperty("--clm-gradient-end", colorSettings.gradientEnd);
     }
     if (colorSettings.buttonBg) {
-      root.style.setProperty('--clm-button-bg', colorSettings.buttonBg);
+      root.style.setProperty("--clm-button-bg", colorSettings.buttonBg);
     }
     if (colorSettings.buttonText) {
-      root.style.setProperty('--clm-button-text', colorSettings.buttonText);
+      root.style.setProperty("--clm-button-text", colorSettings.buttonText);
     }
     if (colorSettings.headingText) {
-      root.style.setProperty('--clm-heading-text', colorSettings.headingText);
+      root.style.setProperty("--clm-heading-text", colorSettings.headingText);
     }
 
     // Handle gradient toggle
     if (container) {
       if (colorSettings.useGradient) {
-        container.classList.add('gradient');
+        container.classList.add("gradient");
       } else {
-        container.classList.remove('gradient');
+        container.classList.remove("gradient");
       }
     }
   },
@@ -234,15 +245,15 @@ const ClaimLoginForm = {
   // Apply content settings to form elements
   applyContentSettings(contentSettings) {
     if (!contentSettings) return;
-    
+
     const elements = {
-      heading: document.querySelector(`.${this.config.cssPrefix}heading`),
-      emailLabel: document.querySelector(`.${this.config.cssPrefix}label[for="email"]`),
-      orderLabel: document.querySelector(`.${this.config.cssPrefix}label[for="order"]`),
-      emailInput: document.querySelector(`.${this.config.cssPrefix}input[name="email"]`),
-      orderInput: document.querySelector(`.${this.config.cssPrefix}input[name="order"]`),
-      button: document.querySelector(`.${this.config.cssPrefix}button`),
-      error: document.querySelector(`.${this.config.cssPrefix}error`)
+      heading: document.querySelector(`.clm-heading`),
+      emailLabel: document.querySelector(`.clm-label[for="email"]`),
+      orderLabel: document.querySelector(`.clm-label[for="order"]`),
+      emailInput: document.querySelector(`.clm-input[name="email"]`),
+      orderInput: document.querySelector(`.clm-input[name="order"]`),
+      button: document.querySelector(`.clm-button`),
+      error: document.querySelector(`.clm-error`),
     };
 
     if (contentSettings.heading && elements.heading) {
@@ -271,11 +282,11 @@ const ClaimLoginForm = {
   // Create DOM element with options
   createElement(tag, options = {}) {
     const element = document.createElement(tag);
-    
+
     if (options.className) element.className = options.className;
     if (options.text) element.textContent = options.text;
     if (options.id) element.id = options.id;
-    
+
     if (options.attrs) {
       Object.entries(options.attrs).forEach(([key, value]) => {
         if (value !== null && value !== undefined) {
@@ -283,110 +294,115 @@ const ClaimLoginForm = {
         }
       });
     }
-    
+
     return element;
   },
 
   // Build the complete form
   buildForm(onSubmitCallback) {
-    const prefix = this.config.cssPrefix;
     const defaults = this.config.defaults;
-    
+
     // Main wrapper
-    const wrapper = this.createElement('div', {
-      className: `${prefix}wrapper`,
-      id: this.config.containerId
+    const wrapper = this.createElement("div", {
+      className: `clm-wrapper`,
+      id: this.config.containerId,
     });
-    
+
     // Form container
-    const container = this.createElement('div', {
-      className: `${prefix}container`
+    const container = this.createElement("div", {
+      className: `clm-container`,
     });
-    
+
     // Form element
-    const form = this.createElement('form', {
-      className: `${prefix}form`
+    const form = this.createElement("form", {
+      className: `clm-form`,
     });
-    
+
     // Heading
-    const heading = this.createElement('h1', {
-      className: `${prefix}heading`,
-      text: defaults.heading
+    const heading = this.createElement("h1", {
+      className: `clm-heading`,
+      text: defaults.heading,
     });
-    
+
     // Fields container
-    const fields = this.createElement('div', {
-      className: `${prefix}fields`
+    const fields = this.createElement("div", {
+      className: `clm-fields`,
     });
-    
+
     // Email field
-    const emailLabel = this.createElement('label', {
-      className: `${prefix}label`,
+    const emailLabel = this.createElement("label", {
+      className: `clm-label`,
       text: defaults.emailLabel,
-      attrs: { for: 'email' }
+      attrs: { for: "email" },
     });
-    
-    const emailInput = this.createElement('input', {
-      className: `${prefix}input`,
+
+    const emailInput = this.createElement("input", {
+      className: `clm-input`,
       attrs: {
-        type: 'email',
-        name: 'email',
-        id: 'email',
+        type: "email",
+        name: "email",
+        id: "email",
         placeholder: defaults.emailPlaceholder,
-        autocomplete: 'email',
-        required: true
-      }
+        autocomplete: "email",
+        required: true,
+      },
     });
-    
+
     // Order field
-    const orderLabel = this.createElement('label', {
-      className: `${prefix}label`,
+    const orderLabel = this.createElement("label", {
+      className: `clm-label`,
       text: defaults.orderLabel,
-      attrs: { for: 'order' }
+      attrs: { for: "order" },
     });
-    
-    const orderInput = this.createElement('input', {
-      className: `${prefix}input`,
+
+    const orderInput = this.createElement("input", {
+      className: `clm-input`,
       attrs: {
-        type: 'text',
-        name: 'order',
-        id: 'order',
+        type: "text",
+        name: "order",
+        id: "order",
         placeholder: defaults.orderPlaceholder,
-        autocomplete: 'off',
-        required: true
-      }
+        autocomplete: "off",
+        required: true,
+      },
     });
-    
+
     // Error message
-    const errorDiv = this.createElement('div', {
-      className: `${prefix}error`,
-      text: defaults.errorMessage
+    const errorDiv = this.createElement("div", {
+      className: `clm-error`,
+      text: defaults.errorMessage,
     });
-    
+
     // Submit button
-    const submitButton = this.createElement('button', {
-      className: `${prefix}button`,
+    const submitButton = this.createElement("button", {
+      className: `clm-button`,
       text: defaults.buttonText,
-      attrs: { type: 'submit' }
+      attrs: { type: "submit" },
     });
-    
+
     // Assemble form
     fields.appendChild(emailLabel);
     fields.appendChild(emailInput);
     fields.appendChild(orderLabel);
     fields.appendChild(orderInput);
-    
+
     form.appendChild(heading);
     form.appendChild(fields);
     form.appendChild(errorDiv);
     form.appendChild(submitButton);
-    
+
     container.appendChild(form);
     wrapper.appendChild(container);
-    
+
     // Add form submission handler
-    this.addFormHandler(form, emailInput, orderInput, errorDiv, onSubmitCallback);
-    
+    this.addFormHandler(
+      form,
+      emailInput,
+      orderInput,
+      errorDiv,
+      onSubmitCallback
+    );
+
     return wrapper;
   },
 
@@ -394,61 +410,61 @@ const ClaimLoginForm = {
   addFormHandler(form, emailInput, orderInput, errorDiv, callback) {
     const handleSubmit = (e) => {
       e.preventDefault();
-      
+
       const email = emailInput.value.trim();
       const orderNumber = orderInput.value.trim();
-      
+
       // Validation
       if (!email || !orderNumber) {
         this.showError(errorDiv);
         return;
       }
-      
+
       this.hideError(errorDiv);
-      
+
       // Execute callback with form data
-      if (typeof callback === 'function') {
+      if (typeof callback === "function") {
         callback({ email, orderNumber });
       } else {
         // Default action
-        console.log('Form Data:', { email, orderNumber });
+        console.log("Form Data:", { email, orderNumber });
         alert(`Form submitted!\nEmail: ${email}\nOrder: ${orderNumber}`);
       }
     };
-    
-    form.addEventListener('submit', handleSubmit);
+
+    form.addEventListener("submit", handleSubmit);
   },
 
   // Show error message
   showError(errorDiv) {
-    errorDiv.classList.add('show');
+    errorDiv.classList.add("show");
   },
 
   // Hide error message
   hideError(errorDiv) {
-    errorDiv.classList.remove('show');
+    errorDiv.classList.remove("show");
   },
 
   // Main initialization function
   init(callback) {
     this.injectStyles();
     const formElement = this.buildForm(callback);
-    
+
     // Set up proxy subscription
     this.proxy.subscribe(({ contentSettings, colorSettings }) => {
       this.applyContentSettings(contentSettings);
       this.applyColorSettings(colorSettings);
     });
-    
+
     // Add to page
     if (document.body) {
       document.body.appendChild(formElement);
     } else {
-      document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(formElement);
       });
     }
-    
+
     return formElement;
   },
 
@@ -458,13 +474,13 @@ const ClaimLoginForm = {
     if (container) {
       container.remove();
     }
-  }
+  },
 };
 
 // Auto-initialize when script loads
-if (typeof window !== 'undefined') {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
+if (typeof window !== "undefined") {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
       ClaimLoginForm.init();
     });
   } else {
@@ -473,11 +489,10 @@ if (typeof window !== 'undefined') {
 }
 
 // Export for use in different environments
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = ClaimLoginForm;
-} else if (typeof define === 'function' && define.amd) {
+} else if (typeof define === "function" && define.amd) {
   define(() => ClaimLoginForm);
 } else {
   window.ClaimLogin = ClaimLoginForm;
 }
-
