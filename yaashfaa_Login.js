@@ -500,6 +500,8 @@
 
 // Claim Login Form - Auto Initialize with Proxy Support
 
+// Claim Login Form - Auto Initialize with Proxy Support
+
 const ClaimLoginForm = {
   // Configuration
   config: {
@@ -562,12 +564,44 @@ const ClaimLoginForm = {
     },
   },
 
-  // Check if should use preview mode
-  shouldUsePreview() {
+  // Check if should use preview mode with timeout for Shopify variable
+  async shouldUsePreview() {
     const previewDiv = document.getElementById(this.config.previewId);
-    const isShopifyApp = window.isShopifyApp === true;
     
-    return previewDiv || isShopifyApp;
+    // If preview div exists, use preview mode immediately
+    if (previewDiv) {
+      return true;
+    }
+    
+    // Wait for window.isShopifyApp to be defined
+    const isShopifyApp = await this.waitForShopifyApp();
+    return isShopifyApp === true;
+  },
+
+  // Wait for window.isShopifyApp variable with timeout
+  waitForShopifyApp(timeout = 5000, interval = 100) {
+    return new Promise((resolve) => {
+      const startTime = Date.now();
+      
+      const checkVariable = () => {
+        // Check if variable exists and is defined
+        if (typeof window.isShopifyApp !== 'undefined') {
+          resolve(window.isShopifyApp);
+          return;
+        }
+        
+        // Check if timeout exceeded
+        if (Date.now() - startTime >= timeout) {
+          resolve(false); // Default to false if not found
+          return;
+        }
+        
+        // Continue checking
+        setTimeout(checkVariable, interval);
+      };
+      
+      checkVariable();
+    });
   },
 
   // Inject CSS styles once
@@ -962,8 +996,10 @@ const ClaimLoginForm = {
   },
 
   // Get the target container for the form
-  getTargetContainer() {
-    if (this.shouldUsePreview()) {
+  async getTargetContainer() {
+    const usePreview = await this.shouldUsePreview();
+    
+    if (usePreview) {
       const previewDiv = document.getElementById(this.config.previewId);
       return previewDiv || document.body;
     }
@@ -971,7 +1007,7 @@ const ClaimLoginForm = {
   },
 
   // Main initialization function
-  init(callback) {
+  async init(callback) {
     this.injectStyles();
     const formElement = this.buildForm(callback);
 
@@ -981,8 +1017,8 @@ const ClaimLoginForm = {
       this.applyColorSettings(colorSettings);
     });
 
-    // Get target container
-    const targetContainer = this.getTargetContainer();
+    // Get target container (wait for Shopify variable if needed)
+    const targetContainer = await this.getTargetContainer();
 
     // Add to page
     const addToPage = () => {
@@ -1012,8 +1048,8 @@ const ClaimLoginForm = {
 // Auto-initialize when script loads
 if (typeof window !== "undefined") {
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => {
-      ClaimLoginForm.init();
+    document.addEventListener("DOMContentLoaded", async () => {
+      await ClaimLoginForm.init();
     });
   } else {
     ClaimLoginForm.init();
