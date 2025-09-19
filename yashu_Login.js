@@ -866,6 +866,7 @@ const ClaimLoginForm = {
     // Form element
     const form = this.createElement("form", {
       className: `clm-form`,
+      attrs: { novalidate: true },
     });
 
     // Heading
