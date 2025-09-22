@@ -110,7 +110,7 @@ const ClaimLoginForm = {
         text-align: left; margin: 0; word-wrap: break-word; letter-spacing: -0.025em;
       }
       .clm-description {
-        font-size: 1rem; color: var(--clm-text-color); margin: 0 0 0.5em 0; padding: 0;
+        font-size: 1rem; color: var(--clm-text-color); margin: 0; padding: 0;
       }
       .clm-fields { display: flex; flex-direction: column; gap: 0.5rem; }
       .clm-label { display: block; color: var(--clm-text-color); font-weight: 500; font-size: 0.875rem; }
@@ -395,6 +395,7 @@ if (typeof module !== "undefined" && module.exports) {
 } else {
   window.ClaimLogin = ClaimLoginForm;
 }
+
 
 
 
