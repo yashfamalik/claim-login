@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>Template1 Demo</title>
-</head>
-<body style="font-family:Arial; margin:20px;">
-
-  <h2>Template1 Demo</h2>
-  <!-- Ye container hai jisme widget render hoga -->
-  <div id="myContainer"></div>
-
-  <!-- Yahan aapka pura Template1 ka code paste hoga -->
-  <script>
 (function (global) {
   "use strict";
 
@@ -674,25 +660,6 @@ template.${fn}(${argName});`);
   }
 })(typeof window !== "undefined" ? window : globalThis);
 
-  </script>
-
-  <!-- Instance banane ke liye -->
-  <script>
-    // Ek instance banate hi widget dikh jayega
-    const template = new Template1("myContainer", {
-      protectionPrice: 4.99,
-      activeTemplate: "template3",
-      selectionMode: "toggle",
-      title: "Shipping Protection",
-      description: "Protect your order from damage, loss, or theft"
-    });
-
-    // Proxy ko setActiveInstance kar dete hain taki console se test kar saken
-    Template1.proxy.setActiveInstance(template);
-  </script>
-
-</body>
-</html>
 
 
 
