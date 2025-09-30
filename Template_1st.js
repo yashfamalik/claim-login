@@ -1,4 +1,4 @@
-const Template1 = (containerId, options = {}) => {
+   const Template1 = (containerId, options = {}) => {
     // --- State Management ---
     const state = {
         containerId,
