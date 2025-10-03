@@ -154,7 +154,6 @@
         textColor: options.enableProtectionControl?.textColor || "#ffffff",
         disabledBackgroundColor: options.enableProtectionControl?.disabledBackgroundColor || "#d1d5db",
         disabledTextColor: options.enableProtectionControl?.disabledTextColor || "#6b7280",
-        enabledText: options.enableProtectionControl?.enabledText || "Protection Enabled",
         disabledText: options.enableProtectionControl?.disabledText || "Enable Protection",
         showText: options.enableProtectionControl?.showText !== false,
         borderRadius: options.enableProtectionControl?.borderRadius || 24,
@@ -183,7 +182,7 @@
         url: options.iconAsset?.url || null
       },
       iconStyle: {
-        size: options.iconStyle?.size || 24,
+        size: options.iconStyle?.size || 35,
         color: options.iconStyle?.color || "#111111",
         background: options.iconStyle?.background || "#F5F5F5",
         borderColor: options.iconStyle?.borderColor || "#E5E7EB",
@@ -264,8 +263,7 @@
       const controlSettings = state.enableProtectionControl;
       const bgColor = state.isEnabled ? controlSettings.backgroundColor : controlSettings.disabledBackgroundColor;
       const textColor = state.isEnabled ? controlSettings.textColor : controlSettings.disabledTextColor;
-      const displayText = state.isEnabled ? controlSettings.enabledText : controlSettings.disabledText;
-      
+    
       const toggleStyle = `
         background-color: ${bgColor};
         color: ${textColor};
@@ -286,7 +284,6 @@
         <div class="T1_toggle ${state.isEnabled ? "T1_enabled" : "T1_disabled"}" 
              role="switch" aria-checked="${state.isEnabled}" tabindex="0"
              style="${toggleStyle}">
-          ${controlSettings.showText ? `<span class="T1_toggle-text">${displayText}</span>` : ''}
           <span class="T1_toggle-handle" style="color: ${textColor}"></span>
         </div>
       `;
@@ -325,10 +322,10 @@
       .T1_title{font-weight:500;font-size:14px;color:${c.textColor};margin:0}
       .T1_description{font-weight:400;font-size:12px;color:${c.textColor};margin:0;line-height:1.4}
       .T1_toggle{position:relative;display:inline-flex;height:24px;min-width:44px;align-items:center;border-radius:9999px;cursor:pointer;transition:${state.enableProtectionControl.transition};font-size:${state.enableProtectionControl.fontSize}px}
-      .T1_toggle.T1_enabled{background:${state.enableProtectionControl.backgroundColor};color:${state.enableProtectionControl.textColor}}
+      .T1_toggle.T1_enabled{background:${state.enableProtectionControl.backgroundColor};accent-color:${c.toggleEnabled};color:${state.enableProtectionControl.textColor}}
       .T1_toggle.T1_disabled{background:${state.enableProtectionControl.disabledBackgroundColor};color:${state.enableProtectionControl.disabledTextColor}}
-      .T1_toggle-handle{display:inline-block;height:16px;width:16px;transform:translateX(4px);border-radius:50%;background:#fff;transition:transform .3s}
-      .T1_toggle.T1_enabled .T1_toggle-handle{transform:translateX(24px)}
+      .T1_toggle-handle{display:inline-block;height:16px;width:16px;transform:translateX(-10px);border-radius:50%;background:#fff;transition:transform .3s}
+      .T1_toggle.T1_enabled .T1_toggle-handle{transform:translateX(10px)}
       .T1_toggle:focus{outline:2px solid #4f46e5;outline-offset:2px}
       .T1_toggle-text{margin-right:8px;font-weight:500;white-space:nowrap}
       ${state.enableProtectionControl.hoverEffect ? '.T1_toggle:hover{opacity:0.9;transform:scale(1.02)}' : ''}
@@ -344,8 +341,7 @@
       .T1_protection-message{background:${c.iconBackground};border-radius:6px;padding:12px;margin:12px 0;display:flex;align-items:flex-start;gap:10px}
       .T1_protection-message-title{font-size:14px;font-weight:600;color:${c.textColor};margin:0 0 4px}
       .T1_protection-message-subtext{font-size:12px;color:${c.textColor};line-height:1.4;margin:0;opacity:.8}
-      .T1_checkout-button-message{background:${c.ctaButtonBg};color:${c.ctaButtonText};border-radius:6px;padding:12px 16px;margin:12px 0;text-align:center;font-size:13px;font-weight:500}
-      .T1_bullet-points{list-style:none;padding:0;margin:8px 0;display:flex;flex-direction:column;gap:6px}
+     .T1_bullet-points{list-style:none;padding:0;margin:8px 0;display:flex;flex-direction:column;gap:6px}
       .T1_bullet-points li{font-size:12px;color:${c.textColor};line-height:1.4}
       .T1_additional-paragraphs{margin:8px 0;display:flex;flex-direction:column;gap:8px}
       .T1_additional-paragraphs p{font-size:12px;color:${c.textColor};line-height:1.4;margin:0}
@@ -363,7 +359,6 @@
       .T1_logo-container img{max-width:100%;max-height:100%;object-fit:contain}
       .T1_icon-custom{width:${is.size}px;height:${is.size}px;background:${is.background};border:1px solid ${is.borderColor};border-radius:${is.borderRadius}px;color:${is.color};display:flex;align-items:center;justify-content:center;font-size:${is.size * 0.6}px;position:relative;overflow:hidden;transition:all 0.3s ease}
       .T1_icon-uploaded{background:linear-gradient(135deg, ${is.background}, ${getLighterColor(is.background)});box-shadow:0 2px 8px rgba(0,0,0,0.1)}
-      .T1_icon-emoji{background:${is.background};transition:transform 0.2s ease}
       .T1_icon-emoji:hover{transform:scale(1.1)}
       .T1_emoji-icon{font-size:${is.size * 0.7}px;line-height:1;display:block}
       .T1_icon-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(45deg, transparent, rgba(255,255,255,0.2));transition:opacity 0.3s ease}
@@ -995,10 +990,6 @@ template.${fn}(${argName});`);
 
 
 
-
-
-
-
 // (function (global) {
 //   "use strict";
 
@@ -1014,30 +1005,53 @@ template.${fn}(${argName});`);
 //     check: `<svg width="20" height="20" class="T1_icon-check" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>`
 //   };
 
-//   // Custom Logo Collection - 6 dynamic logos that can be controlled
+//   // Enhanced Custom Logo Collection - Support for 12 dynamic logos
 //   const CUSTOM_LOGO_MAP = {
 //     "logo1": "🛡️", // Protection Shield
 //     "logo2": "✨", // Sparkles
 //     "logo3": "🔒", // Security Lock
 //     "logo4": "⚡", // Lightning Fast
 //     "logo5": "🎯", // Target Precision
-//     "logo6": "💎"  // Premium Diamond
+//     "logo6": "💎", // Premium Diamond
+//     "logo7": "🚀", // Rocket Speed
+//     "logo8": "📦", // Package Protection
+//     "logo9": "🔐", // Secure Vault
+//     "logo10": "🌟", // Star Quality
+//     "logo11": "🛡️", // Shield Guard
+//     "logo12": "🔥"  // Fire Power
 //   };
 
 //   // Dynamic logo settings that can be updated via controller
 //   let customLogos = {
-//     logo1: { emoji: "🛡️", url: null, name: "Protection Shield" },
-//     logo2: { emoji: "✨", url: null, name: "Sparkles" },
-//     logo3: { emoji: "🔒", url: null, name: "Security Lock" },
-//     logo4: { emoji: "⚡", url: null, name: "Lightning Fast" },
-//     logo5: { emoji: "🎯", url: null, name: "Target Precision" },
-//     logo6: { emoji: "💎", url: null, name: "Premium Diamond" }
+//     logo1: { emoji: "🛡️", url: null, name: "Protection Shield", category: "security" },
+//     logo2: { emoji: "✨", url: null, name: "Sparkles", category: "premium" },
+//     logo3: { emoji: "🔒", url: null, name: "Security Lock", category: "security" },
+//     logo4: { emoji: "⚡", url: null, name: "Lightning Fast", category: "speed" },
+//     logo5: { emoji: "🎯", url: null, name: "Target Precision", category: "accuracy" },
+//     logo6: { emoji: "💎", url: null, name: "Premium Diamond", category: "premium" },
+//     logo7: { emoji: "🚀", url: null, name: "Rocket Speed", category: "speed" },
+//     logo8: { emoji: "📦", url: null, name: "Package Protection", category: "shipping" },
+//     logo9: { emoji: "🔐", url: null, name: "Secure Vault", category: "security" },
+//     logo10: { emoji: "🌟", url: null, name: "Star Quality", category: "premium" },
+//     logo11: { emoji: "🛡️", url: null, name: "Shield Guard", category: "security" },
+//     logo12: { emoji: "🔥", url: null, name: "Fire Power", category: "speed" }
 //   };
 
 //   function ensureInstance(o) {
 //     // Allows calling with or without `new`
 //     if (!(o instanceof Object)) return {};
 //     return o;
+//   }
+
+//   // Utility function for color manipulation
+//   function getLighterColor(color, amount = 0.2) {
+//     const hex = color.replace('#', '');
+//     const num = parseInt(hex, 16);
+//     const amt = Math.round(2.55 * amount * 100);
+//     const R = Math.min(255, (num >> 16) + amt);
+//     const G = Math.min(255, ((num >> 8) & 0x00FF) + amt);
+//     const B = Math.min(255, (num & 0x0000FF) + amt);
+//     return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
 //   }
 
 //   function Template1(containerId, options = {}) {
@@ -1125,13 +1139,24 @@ template.${fn}(${argName});`);
 //       // selection
 //       selectionMode: options.selectionMode || "toggle", // "toggle" | "checkbox" | "button"
 
-//       // Enable Protection toggle control settings
+//       // Enable Protection toggle control settings - Enhanced
 //       enableProtectionControl: {
 //         enabled: options.enableProtectionControl?.enabled !== false,
 //         backgroundColor: options.enableProtectionControl?.backgroundColor || "#49ae78",
 //         textColor: options.enableProtectionControl?.textColor || "#ffffff",
 //         disabledBackgroundColor: options.enableProtectionControl?.disabledBackgroundColor || "#d1d5db",
-//         disabledTextColor: options.enableProtectionControl?.disabledTextColor || "#6b7280"
+//         disabledTextColor: options.enableProtectionControl?.disabledTextColor || "#6b7280",
+//         enabledText: options.enableProtectionControl?.enabledText || "Protection Enabled",
+//         disabledText: options.enableProtectionControl?.disabledText || "Enable Protection",
+//         showText: options.enableProtectionControl?.showText !== false,
+//         borderRadius: options.enableProtectionControl?.borderRadius || 24,
+//         borderWidth: options.enableProtectionControl?.borderWidth || 0,
+//         borderColor: options.enableProtectionControl?.borderColor || "transparent",
+//         fontSize: options.enableProtectionControl?.fontSize || 12,
+//         padding: options.enableProtectionControl?.padding || "6px 12px",
+//         transition: options.enableProtectionControl?.transition || "all 0.3s ease",
+//         hoverEffect: options.enableProtectionControl?.hoverEffect !== false,
+//         activeEffect: options.enableProtectionControl?.activeEffect !== false
 //       },
 
 //       // logo
@@ -1180,28 +1205,29 @@ template.${fn}(${argName});`);
 //           </div>`;
 //       }
       
-//       // Use custom logo system
+//       // Use enhanced custom logo system
 //       const logoKey = state.iconAsset.name || "logo1";
 //       const logo = customLogos[logoKey];
       
 //       if (logo && logo.url) {
-//         // Use uploaded custom logo
+//         // Use uploaded custom logo with enhanced styling
 //         return `
-//           <div class="T1_icon-custom">
+//           <div class="T1_icon-custom T1_icon-uploaded" data-logo-category="${logo.category || 'default'}">
 //             <img src="${logo.url}" style="width:100%;height:100%;object-fit:contain" alt="${logo.name}"/>
+//             <div class="T1_icon-overlay" style="opacity:0"></div>
 //           </div>`;
 //       } else if (logo && logo.emoji) {
-//         // Use emoji fallback
+//         // Use emoji with enhanced styling
 //         return `
-//           <div class="T1_icon-custom">
-//             ${logo.emoji}
+//           <div class="T1_icon-custom T1_icon-emoji" data-logo-category="${logo.category || 'default'}">
+//             <span class="T1_emoji-icon">${logo.emoji}</span>
 //           </div>`;
 //       } else {
-//         // Default fallback
+//         // Default fallback with enhanced styling
 //         const char = CUSTOM_LOGO_MAP[logoKey] || "🛡️";
 //         return `
-//           <div class="T1_icon-custom">
-//             ${char}
+//           <div class="T1_icon-custom T1_icon-fallback">
+//             <span class="T1_emoji-icon">${char}</span>
 //           </div>`;
 //       }
 //     }
@@ -1230,11 +1256,29 @@ template.${fn}(${argName});`);
 //       const controlSettings = state.enableProtectionControl;
 //       const bgColor = state.isEnabled ? controlSettings.backgroundColor : controlSettings.disabledBackgroundColor;
 //       const textColor = state.isEnabled ? controlSettings.textColor : controlSettings.disabledTextColor;
+//       const displayText = state.isEnabled ? controlSettings.enabledText : controlSettings.disabledText;
+      
+//       const toggleStyle = `
+//         background-color: ${bgColor};
+//         color: ${textColor};
+//         border-radius: ${controlSettings.borderRadius}px;
+//         border: ${controlSettings.borderWidth}px solid ${controlSettings.borderColor};
+//         padding: ${controlSettings.padding};
+//         font-size: ${controlSettings.fontSize}px;
+//         transition: ${controlSettings.transition};
+//         cursor: pointer;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         min-width: 44px;
+//         position: relative;
+//       `;
       
 //       return `
 //         <div class="T1_toggle ${state.isEnabled ? "T1_enabled" : "T1_disabled"}" 
 //              role="switch" aria-checked="${state.isEnabled}" tabindex="0"
-//              style="background-color: ${bgColor}">
+//              style="${toggleStyle}">
+//           ${controlSettings.showText ? `<span class="T1_toggle-text">${displayText}</span>` : ''}
 //           <span class="T1_toggle-handle" style="color: ${textColor}"></span>
 //         </div>
 //       `;
@@ -1272,12 +1316,15 @@ template.${fn}(${argName});`);
 //       .T1_content{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
 //       .T1_title{font-weight:500;font-size:14px;color:${c.textColor};margin:0}
 //       .T1_description{font-weight:400;font-size:12px;color:${c.textColor};margin:0;line-height:1.4}
-//       .T1_toggle{position:relative;display:inline-flex;height:24px;width:44px;align-items:center;border-radius:9999px;cursor:pointer;transition:background-color .3s}
-//       .T1_toggle.T1_enabled{background:${c.toggleEnabled}}
-//       .T1_toggle.T1_disabled{background:${c.toggleDisabled}}
+//       .T1_toggle{position:relative;display:inline-flex;height:24px;min-width:44px;align-items:center;border-radius:9999px;cursor:pointer;transition:${state.enableProtectionControl.transition};font-size:${state.enableProtectionControl.fontSize}px}
+//       .T1_toggle.T1_enabled{background:${state.enableProtectionControl.backgroundColor};color:${state.enableProtectionControl.textColor}}
+//       .T1_toggle.T1_disabled{background:${state.enableProtectionControl.disabledBackgroundColor};color:${state.enableProtectionControl.disabledTextColor}}
 //       .T1_toggle-handle{display:inline-block;height:16px;width:16px;transform:translateX(4px);border-radius:50%;background:#fff;transition:transform .3s}
 //       .T1_toggle.T1_enabled .T1_toggle-handle{transform:translateX(24px)}
 //       .T1_toggle:focus{outline:2px solid #4f46e5;outline-offset:2px}
+//       .T1_toggle-text{margin-right:8px;font-weight:500;white-space:nowrap}
+//       ${state.enableProtectionControl.hoverEffect ? '.T1_toggle:hover{opacity:0.9;transform:scale(1.02)}' : ''}
+//       ${state.enableProtectionControl.activeEffect ? '.T1_toggle:active{transform:scale(0.98)}' : ''}
 
 //       .T1_template2-container,.T1_template3-container{background:${c.useGradient ? `linear-gradient(135deg, ${c.gradientStart}, ${c.gradientEnd})` : c.backgroundColor};border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:16px}
 //       .T1_main-widget{display:flex;align-items:center;gap:12px}
@@ -1306,7 +1353,19 @@ template.${fn}(${argName});`);
 //       .T1_button-description{font-size:12px;color:${c.textColor};margin:0;text-align:center;line-height:1.4}
 //       .T1_logo-container{max-width:${ls.maxWidth}px;max-height:${ls.maxHeight}px;overflow:hidden;margin-right:8px}
 //       .T1_logo-container img{max-width:100%;max-height:100%;object-fit:contain}
-//       .T1_icon-custom{width:${is.size}px;height:${is.size}px;background:${is.background};border:1px solid ${is.borderColor};border-radius:${is.borderRadius}px;color:${is.color};display:flex;align-items:center;justify-content:center;font-size:${is.size * 0.6}px}
+//       .T1_icon-custom{width:${is.size}px;height:${is.size}px;background:${is.background};border:1px solid ${is.borderColor};border-radius:${is.borderRadius}px;color:${is.color};display:flex;align-items:center;justify-content:center;font-size:${is.size * 0.6}px;position:relative;overflow:hidden;transition:all 0.3s ease}
+//       .T1_icon-uploaded{background:linear-gradient(135deg, ${is.background}, ${getLighterColor(is.background)});box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+//       .T1_icon-emoji{background:${is.background};transition:transform 0.2s ease}
+//       .T1_icon-emoji:hover{transform:scale(1.1)}
+//       .T1_emoji-icon{font-size:${is.size * 0.7}px;line-height:1;display:block}
+//       .T1_icon-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(45deg, transparent, rgba(255,255,255,0.2));transition:opacity 0.3s ease}
+//       .T1_icon-uploaded:hover .T1_icon-overlay{opacity:1}
+//       .T1_icon-fallback{opacity:0.8;border-style:dashed}
+//       .T1_icon-custom[data-logo-category="security"]{border-color:#10b981}
+//       .T1_icon-custom[data-logo-category="premium"]{border-color:#8b5cf6}
+//       .T1_icon-custom[data-logo-category="speed"]{border-color:#f59e0b}
+//       .T1_icon-custom[data-logo-category="accuracy"]{border-color:#ef4444}
+//       .T1_icon-custom[data-logo-category="shipping"]{border-color:#3b82f6}
 //       `;
 //       document.head.appendChild(s);
 //     }
@@ -1636,17 +1695,100 @@ template.${fn}(${argName});`);
 //           return;
 //         }
         
+//         // Validate file type
+//         const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg+xml', 'image/webp'];
+//         if (!validTypes.includes(file.type)) {
+//           reject(new Error('Invalid file type. Please upload a valid image file.'));
+//           return;
+//         }
+        
+//         // Validate file size (max 5MB)
+//         const maxSize = 5 * 1024 * 1024; // 5MB
+//         if (file.size > maxSize) {
+//           reject(new Error('File size too large. Please upload an image smaller than 5MB.'));
+//           return;
+//         }
+        
 //         const reader = new FileReader();
 //         reader.onload = (e) => {
+//           const originalLogo = { ...customLogos[logoKey] };
 //           customLogos[logoKey].url = e.target.result;
 //           customLogos[logoKey].name = file.name.split('.')[0] || customLogos[logoKey].name;
+//           customLogos[logoKey].uploadedAt = new Date().toISOString();
+//           customLogos[logoKey].fileSize = file.size;
+//           customLogos[logoKey].fileType = file.type;
+          
 //           render();
 //           bindEvents();
-//           resolve(customLogos[logoKey]);
+          
+//           resolve({
+//             logoKey,
+//             logo: { ...customLogos[logoKey] },
+//             original: originalLogo,
+//             success: true
+//           });
 //         };
 //         reader.onerror = () => reject(new Error('Failed to read file'));
 //         reader.readAsDataURL(file);
 //       });
+//     }
+
+//     function resetCustomLogo(logoKey) {
+//       if (!customLogos[logoKey]) {
+//         return { success: false, error: 'Invalid logo key' };
+//       }
+      
+//       const originalEmoji = CUSTOM_LOGO_MAP[logoKey];
+//       customLogos[logoKey] = {
+//         emoji: originalEmoji,
+//         url: null,
+//         name: customLogos[logoKey].name,
+//         category: customLogos[logoKey].category
+//       };
+      
+//       render();
+//       bindEvents();
+      
+//       return { success: true, logoKey, logo: { ...customLogos[logoKey] } };
+//     }
+
+//     function bulkUploadLogos(logoFiles) {
+//       return Promise.allSettled(
+//         Object.entries(logoFiles).map(([logoKey, file]) => 
+//           uploadCustomLogo(logoKey, file)
+//         )
+//       );
+//     }
+
+//     function exportLogos() {
+//       const exportData = {
+//         timestamp: new Date().toISOString(),
+//         logos: { ...customLogos },
+//         version: '1.0'
+//       };
+      
+//       return exportData;
+//     }
+
+//     function importLogos(importData) {
+//       try {
+//         if (!importData || !importData.logos) {
+//           throw new Error('Invalid import data');
+//         }
+        
+//         Object.keys(importData.logos).forEach(logoKey => {
+//           if (customLogos[logoKey]) {
+//             customLogos[logoKey] = { ...customLogos[logoKey], ...importData.logos[logoKey] };
+//           }
+//         });
+        
+//         render();
+//         bindEvents();
+        
+//         return { success: true, imported: Object.keys(importData.logos).length };
+//       } catch (error) {
+//         return { success: false, error: error.message };
+//       }
 //     }
 
 //     function destroy() {
@@ -1677,7 +1819,23 @@ template.${fn}(${argName});`);
 //       getCustomLogos,
 //       updateEnableProtectionControl,
 //       getEnableProtectionControl,
-//       uploadCustomLogo
+      
+//       // Enhanced logo management
+//       uploadCustomLogo,
+//       resetCustomLogo,
+//       bulkUploadLogos,
+//       exportLogos,
+//       importLogos,
+      
+//       // Utility methods
+//       getAllAvailableLogos: () => Object.keys(customLogos),
+//       getLogoByKey: (key) => customLogos[key] ? { ...customLogos[key] } : null,
+//       validateLogoKey: (key) => !!customLogos[key],
+//       getLogoCategories: () => [...new Set(Object.values(customLogos).map(logo => logo.category))],
+//       getLogosByCategory: (category) => 
+//         Object.entries(customLogos)
+//           .filter(([, logo]) => logo.category === category)
+//           .reduce((acc, [key, logo]) => ({ ...acc, [key]: logo }), {})
 //     };
 
 //     // ---------- Init ----------
@@ -1742,6 +1900,42 @@ template.${fn}(${argName});`);
 //         warnNoInstance("uploadCustomLogo", "logoKey, file");
 //         return Promise.reject(new Error('No instance available'));
 //       },
+//       resetCustomLogo(logoKey) {
+//         warnNoInstance("resetCustomLogo", "logoKey");
+//         return { success: false, error: 'No instance available' };
+//       },
+//       bulkUploadLogos(logoFiles) {
+//         warnNoInstance("bulkUploadLogos", "logoFiles");
+//         return Promise.reject(new Error('No instance available'));
+//       },
+//       exportLogos() {
+//         warnNoInstance("exportLogos", "");
+//         return null;
+//       },
+//       importLogos(importData) {
+//         warnNoInstance("importLogos", "importData");
+//         return { success: false, error: 'No instance available' };
+//       },
+//       getAllAvailableLogos() {
+//         warnNoInstance("getAllAvailableLogos", "");
+//         return [];
+//       },
+//       getLogoByKey(key) {
+//         warnNoInstance("getLogoByKey", "key");
+//         return null;
+//       },
+//       validateLogoKey(key) {
+//         warnNoInstance("validateLogoKey", "key");
+//         return false;
+//       },
+//       getLogoCategories() {
+//         warnNoInstance("getLogoCategories", "");
+//         return [];
+//       },
+//       getLogosByCategory(category) {
+//         warnNoInstance("getLogosByCategory", "category");
+//         return {};
+//       },
 //       getInstance(containerId) {
 //         const el = document.getElementById(containerId);
 //         return el?._template1Instance || null;
@@ -1761,7 +1955,16 @@ template.${fn}(${argName});`);
 //           "getCustomLogos",
 //           "updateEnableProtectionControl",
 //           "getEnableProtectionControl",
-//           "uploadCustomLogo"
+//           "uploadCustomLogo",
+//           "resetCustomLogo",
+//           "bulkUploadLogos",
+//           "exportLogos",
+//           "importLogos",
+//           "getAllAvailableLogos",
+//           "getLogoByKey",
+//           "validateLogoKey",
+//           "getLogoCategories",
+//           "getLogosByCategory"
 //         ];
 //         methods.forEach((m) => {
 //           if (typeof instance[m] === "function") {
@@ -1780,3 +1983,4 @@ template.${fn}(${argName});`);
 //     }
 //   }
 // })(typeof window !== "undefined" ? window : globalThis);
+
