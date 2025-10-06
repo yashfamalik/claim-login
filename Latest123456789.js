@@ -1,4 +1,4 @@
-  (function (global) {
+ (function (global) {
     "use strict";
 
     const d = (sel, root = document) => root.querySelector(sel);
@@ -51,23 +51,59 @@
 
     // Utility function for color manipulation
     function getLighterColor(color, amount = 0.2) {
-        const hex = color.replace('#', '');
-        const num = parseInt(hex, 16);
-        const amt = Math.round(2.55 * amount * 100);
-        const R = Math.min(255, (num >> 16) + amt);
-        const G = Math.min(255, ((num >> 8) & 0x00FF) + amt);
-        const B = Math.min(255, (num & 0x0000FF) + amt);
-        return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+        if (!color || typeof color !== "string") return color;
+        
+        // Remove # if present
+        let hex = color.replace("#", "");
+        
+        // If 3-digit hex, convert to 6-digit
+        if (hex.length === 3) {
+            hex = hex.split("").map(char => char + char).join("");
+        }
+        
+        // Parse RGB values
+        const r = parseInt(hex.substr(0, 2), 16);
+        const g = parseInt(hex.substr(2, 2), 16);
+        const b = parseInt(hex.substr(4, 2), 16);
+        
+        // Lighten each component
+        const lighten = (value) => Math.max(0, Math.min(255, Math.floor(value + (255 - value) * amount)));
+        
+        // Convert back to hex
+        const toHex = (n) => {
+            const hex = Math.round(Math.max(0, Math.min(255, n))).toString(16);
+            return hex.length === 1 ? "0" + hex : hex;
+        };
+        
+        return `#${toHex(lighten(r))}${toHex(lighten(g))}${toHex(lighten(b))}`;
     }
 
     function getDarkerColor(color, amount = 0.2) {
-        const hex = color.replace('#', '');
-        const num = parseInt(hex, 16);
-        const amt = Math.round(2.55 * amount * 100);
-        const R = Math.max(0, (num >> 16) - amt);
-        const G = Math.max(0, ((num >> 8) & 0x00FF) - amt);
-        const B = Math.max(0, (num & 0x0000FF) - amt);
-        return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+        if (!color || typeof color !== "string") return color;
+        
+        // Remove # if present
+        let hex = color.replace("#", "");
+        
+        // If 3-digit hex, convert to 6-digit
+        if (hex.length === 3) {
+            hex = hex.split("").map(char => char + char).join("");
+        }
+        
+        // Parse RGB values
+        const r = parseInt(hex.substr(0, 2), 16);
+        const g = parseInt(hex.substr(2, 2), 16);
+        const b = parseInt(hex.substr(4, 2), 16);
+        
+        // Darken each component
+        const darken = (value) => Math.max(0, Math.min(255, Math.floor(value * (1 - amount))));
+        
+        // Convert back to hex
+        const toHex = (n) => {
+            const hex = Math.round(Math.max(0, Math.min(255, n))).toString(16);
+            return hex.length === 1 ? "0" + hex : hex;
+        };
+        
+        return `#${toHex(darken(r))}${toHex(darken(g))}${toHex(darken(b))}`;
     }
 
     function Template1(containerId, options = {}) {
@@ -335,12 +371,14 @@
         function inlinePointsHTML() {
             // Apply SVG color from theme settings
             const svgColor = state.colors.svgColor || getLighterColor(state.colors.textColor, 0.3);
+            // Make text color slightly darker for better readability
+            const darkerTextColor = getDarkerColor(state.colors.textColor, 0.2);
             return `
         <div class="T1_inline-points">
           ${state.inlinePoints
                     .map(
                         (p) => `
-            <div class="T1_inline-point" style="color: ${svgColor}">
+            <div class="T1_inline-point" style="color: ${darkerTextColor}">
               ${svg(p.icon)}
               <span>${p.text}</span>
             </div>`
@@ -360,7 +398,9 @@
             const toggleEnabledColor = state.colors.toggleEnabled;
             const svgColor = state.colors.svgColor || getLighterColor(state.colors.textColor, 0.3);
             // Make text slightly darker for better readability
-            const darkerTextColor = getDarkerColor(c.textColor, 0.1);
+            const darkerTextColor = getDarkerColor(c.textColor, 0.2);
+            // Make SVG color slightly darker for better contrast with background
+            const svgDarkerColor = getDarkerColor(svgColor, 0.1);
 
             s.textContent = `
     .T1_shipping-protection {
@@ -374,7 +414,7 @@
       transition: 0.3s;
     }
     .T1_shipping-protection svg, .T1_template2-container svg, .T1_template3-container svg {
-      color: ${svgColor};
+      color: ${svgDarkerColor};
     }
     .T1_icon-container {
       width: 55px;
@@ -1293,6 +1333,8 @@ template.${fn}(${argName});`);
 
 
 
+
+
 //   (function (global) {
 //     "use strict";
 
@@ -1303,7 +1345,7 @@ template.${fn}(${argName});`);
 //     const SVG = {
 //         shield: `<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 // <path d="M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-// </svg`,
+// </svg>`,
 //         users: `<svg width="20px" height="20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none">
 //   <path fill="currentColor" fill-rule="evenodd" d="M3 10a7 7 0 019.307-6.611 1 1 0 00.658-1.889 9 9 0 105.98 7.501 1 1 0 00-1.988.22A7 7 0 113 10zm14.75-5.338a1 1 0 00-1.5-1.324l-6.435 7.28-3.183-2.593a1 1 0 00-1.264 1.55l3.929 3.2a1 1 0 001.38-.113l7.072-8z"/>
 // </svg>`,
@@ -1478,7 +1520,7 @@ template.${fn}(${argName});`);
 //                 badgeBg: "#5CC992", // Darker version of #72D9A3
 //                 badgeText: "#ffffff",
 //                 // SVG color control - single variable to control all SVG colors
-//                 svgColor: "#336B4A", // Default to slightly darker than base theme color
+//                 svgColor: "#ffffff", // Lighter than text for better contrast
 //             }
 //         };
 
@@ -1629,7 +1671,7 @@ template.${fn}(${argName});`);
 
 //         function inlinePointsHTML() {
 //             // Apply SVG color from theme settings
-//             const svgColor = state.colors.svgColor || state.colors.textColor;
+//             const svgColor = state.colors.svgColor || getLighterColor(state.colors.textColor, 0.3);
 //             return `
 //         <div class="T1_inline-points">
 //           ${state.inlinePoints
@@ -1653,7 +1695,7 @@ template.${fn}(${argName});`);
 //             const is = state.iconStyle;
 //             const ls = state.logoSettings;
 //             const toggleEnabledColor = state.colors.toggleEnabled;
-//             const svgColor = state.colors.svgColor || state.colors.textColor;
+//             const svgColor = state.colors.svgColor || getLighterColor(state.colors.textColor, 0.3);
 //             // Make text slightly darker for better readability
 //             const darkerTextColor = getDarkerColor(c.textColor, 0.1);
 
