@@ -1220,6 +1220,27 @@ function updateColorSettings(colors = {}) {
   return 0.2126 * rLinear + 0.7152 * gLinear + 0.0722 * bLinear;
 }
 
+
+// Convert hex to RGB
+function hexToRgb(hex) {
+  if (!hex || typeof hex !== "string") return null;
+  let normalized = hex.trim();
+  if (!normalized.startsWith("#")) return null;
+  let c = normalized.slice(1);
+  if (c.length === 3) {
+    c = c
+      .split("")
+      .map((ch) => ch + ch)
+      .join("");
+  }
+  if (c.length !== 6) return null;
+  const r = parseInt(c.slice(0, 2), 16);
+  const g = parseInt(c.slice(2, 4), 16);
+  const b = parseInt(c.slice(4, 6), 16);
+  return { r, g, b };
+}
+
+
 function getContrastTextColor(backgroundColor) {
   const rgb = hexToRgb(backgroundColor);
   if (!rgb) return "#000000"; // Default to black if invalid color
@@ -1377,7 +1398,6 @@ template.${fn}(${argName});`);
     }
   }
 })(typeof window !== "" ? window : globalThis);
-
 
 
 
