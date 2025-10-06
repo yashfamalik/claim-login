@@ -447,18 +447,21 @@
       gap: 4px;
     }
  .T1_content, .T1_inline-point, .T1_protection-message, .T1_bullet-points, .T1_additional-paragraphs {
-      color: ${darkerTextColor};
+      
+      color: ${c.toggleEnabled};
     }
     .T1_title {
       font-weight: 500;
       font-size: 14px;
-      color: ${darkerTextColor};
+      
+      color: ${c.toggleEnabled};
       margin: 0;
     }
     .T1_description {
       font-weight: 400;
       font-size: 12px;
-      color: ${darkerTextColor};
+      
+      color: ${c.toggleEnabled};
       margin: 0;
       line-height: 1.4;
     }
@@ -536,7 +539,8 @@
       align-items: center;
       gap: 6px;
       font-size: 12px;
-      color: ${darkerTextColor};
+      
+      color: ${c.toggleEnabled};
       font-weight: 500;
     }
     .T1_inline-point-icon {
@@ -553,7 +557,8 @@
       gap: 8px;
       font-size: 13px;
       font-weight: 500;
-      color: ${darkerTextColor};
+      
+      color: ${c.toggleEnabled};
     }
     .T1_protection-message {
       background: ${c.iconBackground};
@@ -566,12 +571,14 @@
     .T1_protection-message-title {
       font-size: 14px;
       font-weight: 600;
-      color: ${darkerTextColor};
+      
+      color: ${c.toggleEnabled};
       margin: 0 0 4px;
     }
     .T1_protection-message-subtext {
       font-size: 12px;
-      color: ${darkerTextColor};
+      
+      color: ${c.toggleEnabled};
       line-height: 1.4;
       margin: 0;
       opacity: 0.8;
@@ -586,7 +593,8 @@
     }
      .T1_additional-paragraphs p {
       font-size: 12px;
-      color: ${darkerTextColor};
+      
+      color: ${c.toggleEnabled};
       line-height: 1.4;
       margin: 0;
     }
@@ -1401,6 +1409,11 @@ template.${fn}(${argName});`);
 
 
 
+
+
+
+
+
 // (function (global) {
 //   "use strict";
 
@@ -1798,19 +1811,17 @@ template.${fn}(${argName});`);
 //       const s = document.createElement("style");
 //       s.id = id;
 //       const c = state.colors;
-//       const is = state.iconStyle;
-//       const ls = state.logoSettings;
-//       const toggleEnabledColor = state.colors.toggleEnabled;
-     
+
 //       // Calculate text color based on background luminance
-//   const backgroundColor = c.useGradient ? c.gradientStart : c.backgroundColor;
-//   const textColor = getContrastTextColor(backgroundColor);
+//       const backgroundColor = c.useGradient ? c.gradientStart : c.backgroundColor;
+//       const textColor = c.textColor || getContrastTextColor(backgroundColor);
 
-//   // Use the calculated text color
-//   const darkerTextColor = getDarkerColor(textColor, 0.2);
-//   const svgDarkerColor = getDarkerColor(textColor, 0.1);
+//       // Use the calculated text color
+//       const darkerTextColor = getDarkerColor(textColor, 0.2);
+//       const svgDarkerColor = getDarkerColor(textColor, 0.1);
 
-//       s.textContent = `
+
+//      s.textContent = `
 //     .T1_shipping-protection {
 //       background: ${c.useGradient ? `linear-gradient(135deg, ${c.gradientStart}, ${c.gradientEnd})` : c.backgroundColor};
 //       border-radius: 8px;
@@ -1851,7 +1862,7 @@ template.${fn}(${argName});`);
 //       flex-direction: column;
 //       gap: 4px;
 //     }
-//       .T1_content, .T1_inline-point, .T1_protection-message, .T1_bullet-points, .T1_additional-paragraphs {
+//  .T1_content, .T1_inline-point, .T1_protection-message, .T1_bullet-points, .T1_additional-paragraphs {
 //       color: ${darkerTextColor};
 //     }
 //     .T1_title {
@@ -1867,14 +1878,14 @@ template.${fn}(${argName});`);
 //       margin: 0;
 //       line-height: 1.4;
 //     }
-//     .T1_toggle {
+//       .T1_toggle {
 //       position: relative;
 //       display: inline-flex;
 //       align-items: center;
 //       cursor: pointer;
 //       width: 44px;
 //       height: 24px;
-//       accent-color: ${toggleEnabledColor};
+//       accent-color: ${c.toggleEnabled};
 //     }
 //     .T1_toggle input[type="checkbox"] {
 //       opacity: 0;
@@ -1894,7 +1905,7 @@ template.${fn}(${argName});`);
 //       transition: background-color 0.3s;
 //     }
 //     .T1_toggle input[type="checkbox"]:checked + .toggle-track {
-//       background-color: ${toggleEnabledColor};
+//       background-color: ${c.toggleEnabled};
 //     }
 //     .T1_toggle .toggle-handle {
 //       position: absolute;
@@ -1917,6 +1928,7 @@ template.${fn}(${argName});`);
 //       display: flex;
 //       flex-direction: column;
 //       gap: 16px;
+//       color: ${textColor}; /* Apply dynamic text color */
 //     }
 //     .T1_main-widget {
 //       display: flex;
@@ -1935,7 +1947,7 @@ template.${fn}(${argName});`);
 //       gap: 16px;
 //       flex-wrap: wrap;
 //     }
-//     .T1_inline-point {
+//    .T1_inline-point {
 //       display: flex;
 //       align-items: center;
 //       gap: 6px;
@@ -1988,7 +2000,7 @@ template.${fn}(${argName});`);
 //       flex-direction: column;
 //       gap: 6px;
 //     }
-//     .T1_additional-paragraphs p {
+//      .T1_additional-paragraphs p {
 //       font-size: 12px;
 //       color: ${darkerTextColor};
 //       line-height: 1.4;
@@ -1996,7 +2008,7 @@ template.${fn}(${argName});`);
 //     }
 //     .T1_confirmation-message {
 //       font-size: 12px;
-//       color: ${toggleEnabledColor};
+//       color: ${c.toggleEnabled};
 //       font-weight: 500;
 //       margin-top: 4px;
 //       display: none;
@@ -2005,10 +2017,10 @@ template.${fn}(${argName});`);
 //     .T1_confirmation-message.T1_visible {
 //      display: block;
 //     }
-//     .T1_badge {
+//       .T1_badge {
 //       position: absolute;
 //       top: -12px;
-//     right: -12px;
+//       right: -12px;
 //       background: ${c.badgeBg};
 //       color: ${c.badgeText};
 //       font-size: 10px;
@@ -2026,10 +2038,10 @@ template.${fn}(${argName});`);
 //       display: block;
 //       transform: scale(1);
 //     }
-//     .T1_checkbox {
+//      .T1_checkbox {
 //       width: 18px;
 //       height: 18px;
-//       accent-color: ${toggleEnabledColor};
+//       accent-color: ${c.toggleEnabled};
 //       cursor: pointer;
 //     }
 //     .T1_button-mode {
@@ -2041,7 +2053,7 @@ template.${fn}(${argName});`);
 //       border-radius: 8px;
       
 //     }
-//  .T1_protection-button {
+//   .T1_protection-button {
 //       background: ${c.buttonBg};
 //       color: ${getContrastTextColor(c.buttonBg)};
 //       border: 0;
@@ -2064,9 +2076,9 @@ template.${fn}(${argName});`);
 //       text-align: center;
 //       line-height: 1.4;
 //     }
-//     .T1_logo-container {
-//       max-width: ${ls.maxWidth}px;
-//       max-height: ${ls.maxHeight}px;
+//    T1_logo-container {
+//       max-width: ${state.logoSettings.maxWidth}px;
+//       max-height: ${state.logoSettings.maxHeight}px;
 //       overflow: hidden;
 //       margin-right: 8px;
 //     }
@@ -2075,15 +2087,15 @@ template.${fn}(${argName});`);
 //       max-height: 100%;
 //       object-fit: contain;
 //     }
-//     .T1_icon-custom {
-//       width: ${is.size}px;
-//       height: ${is.size}px;
-//       color: ${is.color};
+//    .T1_icon-custom {
+//       width: ${state.iconStyle.size}px;
+//       height: ${state.iconStyle.size}px;
+//       color: ${state.iconStyle.color};
 //       display: flex;
 //       align-items: center;
 //     }
-//     .T1_icon-uploaded {
-//       background: linear-gradient(135deg, ${is.background}, ${getLighterColor(is.background)});
+//   .T1_icon-uploaded {
+//       background: linear-gradient(135deg, ${state.iconStyle.background}, ${getLighterColor(state.iconStyle.background)});
 //       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 //     }
 //     .T1_icon-custom:hover {
@@ -2376,7 +2388,7 @@ template.${fn}(${argName});`);
 //       bindEvents();
 //     }
 
-//     function updateColorSettings(colors = {}) {
+// function updateColorSettings(colors = {}) {
 //   Object.keys(colors).forEach((k) => {
 //     if (k in state.colors) state.colors[k] = colors[k];
 //   });
@@ -2623,11 +2635,49 @@ template.${fn}(${argName});`);
 //   return 0.2126 * rLinear + 0.7152 * gLinear + 0.0722 * bLinear;
 // }
 
+
+// // Convert hex to RGB
+// function hexToRgb(hex) {
+//   if (!hex || typeof hex !== "string") return null;
+//   let normalized = hex.trim();
+//   if (!normalized.startsWith("#")) return null;
+//   let c = normalized.slice(1);
+//   if (c.length === 3) {
+//     c = c
+//       .split("")
+//       .map((ch) => ch + ch)
+//       .join("");
+//   }
+//   if (c.length !== 6) return null;
+//   const r = parseInt(c.slice(0, 2), 16);
+//   const g = parseInt(c.slice(2, 4), 16);
+//   const b = parseInt(c.slice(4, 6), 16);
+//   return { r, g, b };
+// }
+
+
 // function getContrastTextColor(backgroundColor) {
-//   const luminance = getLuminance(backgroundColor);
+//   const rgb = hexToRgb(backgroundColor);
+//   if (!rgb) return "#000000"; // Default to black if invalid color
+
+//   // Calculate relative luminance
+//   const r = rgb.r / 255;
+//   const g = rgb.g / 255;
+//   const b = rgb.b / 255;
+
+//   const gammaCorrect = (value) =>
+//     value <= 0.03928 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
+
+//   const rLinear = gammaCorrect(r);
+//   const gLinear = gammaCorrect(g);
+//   const bLinear = gammaCorrect(b);
+
+//   const luminance = 0.2126 * rLinear + 0.7152 * gLinear + 0.0722 * bLinear;
+
 //   // Use light text for dark backgrounds and vice versa
 //   return luminance > 0.179 ? "#000000" : "#FFFFFF";
 // }
+
 
 
 //   // CommonJS / UMD-ish export
@@ -2763,3 +2813,5 @@ template.${fn}(${argName});`);
 //     }
 //   }
 // })(typeof window !== "" ? window : globalThis);
+
+
