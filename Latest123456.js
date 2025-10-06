@@ -124,20 +124,20 @@
 
             // Button block settings
             buttonBlock: {
-                buttonLabel: "Enable Protection",
+                buttonLabel: "Protected checkout + $12.11",
                 buttonHref: "https://example.com/cta",
                 paragraph: "One-line supporting text below the button."
             },
 
-            // Enable protection control settings
+            // Protected checkout + $12.11 control settings
             enableProtectionControl: {
                 enabled: true,
                 backgroundColor: "#49ae78",
-                textColor: "#ffffff",
+                textColor: "#000000",
                 disabledBackgroundColor: "#d1d5db",
                 disabledTextColor: "#6b7280",
                 enabledText: "Protection Enabled",
-                disabledText: "Enable Protection",
+                disabledText: "Protected checkout + $12.11",
                 showText: false,
                 borderRadius: 24,
                 borderWidth: 0,
@@ -567,7 +567,7 @@
       align-items: center;
       padding: 12px;
       border-radius: 8px;
-      background: ${c.backgroundColor};
+      
     }
     .T1_protection-button {
       background: ${c.buttonBg};
