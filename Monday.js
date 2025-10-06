@@ -398,14 +398,14 @@
 
       // Calculate text color based on background luminance
       const backgroundColor = c.useGradient ? c.gradientStart : c.backgroundColor;
-      const textColor = c.textColor || getContrastTextColor(backgroundColor);
+const textColor = getDarkerColor(c.toggleEnabled, 0.2);
 
       // Use the calculated text color
       const darkerTextColor = getDarkerColor(textColor, 0.2);
       const svgDarkerColor = getDarkerColor(textColor, 0.1);
 
 
-     s.textContent = `
+      s.textContent = `
     .T1_shipping-protection {
       background: ${c.useGradient ? `linear-gradient(135deg, ${c.gradientStart}, ${c.gradientEnd})` : c.backgroundColor};
       border-radius: 8px;
@@ -448,20 +448,20 @@
     }
  .T1_content, .T1_inline-point, .T1_protection-message, .T1_bullet-points, .T1_additional-paragraphs {
       
-      color: ${c.toggleEnabled};
+      color: ${textColor};
     }
     .T1_title {
       font-weight: 500;
       font-size: 14px;
       
-      color: ${c.toggleEnabled};
+      color: ${textColor};
       margin: 0;
     }
     .T1_description {
       font-weight: 400;
       font-size: 12px;
       
-      color: ${c.toggleEnabled};
+      color: ${textColor};
       margin: 0;
       line-height: 1.4;
     }
@@ -472,7 +472,7 @@
       cursor: pointer;
       width: 44px;
       height: 24px;
-      accent-color: ${c.toggleEnabled};
+      accent-color: ${textColor};
     }
     .T1_toggle input[type="checkbox"] {
       opacity: 0;
@@ -492,7 +492,7 @@
       transition: background-color 0.3s;
     }
     .T1_toggle input[type="checkbox"]:checked + .toggle-track {
-      background-color: ${c.toggleEnabled};
+      background-color: ${textColor};
     }
     .T1_toggle .toggle-handle {
       position: absolute;
@@ -540,7 +540,7 @@
       gap: 6px;
       font-size: 12px;
       
-      color: ${c.toggleEnabled};
+      color: ${textColor};
       font-weight: 500;
     }
     .T1_inline-point-icon {
@@ -558,7 +558,7 @@
       font-size: 13px;
       font-weight: 500;
       
-      color: ${c.toggleEnabled};
+      color: ${textColor};
     }
     .T1_protection-message {
       background: ${c.iconBackground};
@@ -572,13 +572,13 @@
       font-size: 14px;
       font-weight: 600;
       
-      color: ${c.toggleEnabled};
+      color: ${textColor};
       margin: 0 0 4px;
     }
     .T1_protection-message-subtext {
       font-size: 12px;
       
-      color: ${c.toggleEnabled};
+      color: ${textColor};
       line-height: 1.4;
       margin: 0;
       opacity: 0.8;
@@ -594,13 +594,13 @@
      .T1_additional-paragraphs p {
       font-size: 12px;
       
-      color: ${c.toggleEnabled};
+      color: ${textColor};
       line-height: 1.4;
       margin: 0;
     }
     .T1_confirmation-message {
       font-size: 12px;
-      color: ${c.toggleEnabled};
+      color: ${textColor};
       font-weight: 500;
       margin-top: 4px;
       display: none;
@@ -633,7 +633,7 @@
      .T1_checkbox {
       width: 18px;
       height: 18px;
-      accent-color: ${c.toggleEnabled};
+      accent-color: ${textColor};
       cursor: pointer;
     }
     .T1_button-mode {
@@ -980,14 +980,14 @@
       bindEvents();
     }
 
-function updateColorSettings(colors = {}) {
-  Object.keys(colors).forEach((k) => {
-    if (k in state.colors) state.colors[k] = colors[k];
-  });
-  injectStyles(); // Re-inject styles to update text color
-  render(); // Re-render to apply changes
-  bindEvents();
-}
+    function updateColorSettings(colors = {}) {
+      Object.keys(colors).forEach((k) => {
+        if (k in state.colors) state.colors[k] = colors[k];
+      });
+      injectStyles(); // Re-inject styles to update text color
+      render(); // Re-render to apply changes
+      bindEvents();
+    }
 
 
     function updateSelectionMode({ mode } = {}) {
@@ -1210,65 +1210,65 @@ function updateColorSettings(colors = {}) {
 
   // New aded for text
   function getLuminance(hexColor) {
-  // Convert hex to RGB
-  const r = parseInt(hexColor.substr(1, 2), 16) / 255;
-  const g = parseInt(hexColor.substr(3, 2), 16) / 255;
-  const b = parseInt(hexColor.substr(5, 2), 16) / 255;
+    // Convert hex to RGB
+    const r = parseInt(hexColor.substr(1, 2), 16) / 255;
+    const g = parseInt(hexColor.substr(3, 2), 16) / 255;
+    const b = parseInt(hexColor.substr(5, 2), 16) / 255;
 
-  // Apply gamma correction
-  const gammaCorrect = (value) =>
-    value <= 0.03928 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
+    // Apply gamma correction
+    const gammaCorrect = (value) =>
+      value <= 0.03928 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
 
-  const rLinear = gammaCorrect(r);
-  const gLinear = gammaCorrect(g);
-  const bLinear = gammaCorrect(b);
+    const rLinear = gammaCorrect(r);
+    const gLinear = gammaCorrect(g);
+    const bLinear = gammaCorrect(b);
 
-  // Calculate relative luminance
-  return 0.2126 * rLinear + 0.7152 * gLinear + 0.0722 * bLinear;
-}
-
-
-// Convert hex to RGB
-function hexToRgb(hex) {
-  if (!hex || typeof hex !== "string") return null;
-  let normalized = hex.trim();
-  if (!normalized.startsWith("#")) return null;
-  let c = normalized.slice(1);
-  if (c.length === 3) {
-    c = c
-      .split("")
-      .map((ch) => ch + ch)
-      .join("");
+    // Calculate relative luminance
+    return 0.2126 * rLinear + 0.7152 * gLinear + 0.0722 * bLinear;
   }
-  if (c.length !== 6) return null;
-  const r = parseInt(c.slice(0, 2), 16);
-  const g = parseInt(c.slice(2, 4), 16);
-  const b = parseInt(c.slice(4, 6), 16);
-  return { r, g, b };
-}
 
 
-function getContrastTextColor(backgroundColor) {
-  const rgb = hexToRgb(backgroundColor);
-  if (!rgb) return "#000000"; // Default to black if invalid color
+  // Convert hex to RGB
+  function hexToRgb(hex) {
+    if (!hex || typeof hex !== "string") return null;
+    let normalized = hex.trim();
+    if (!normalized.startsWith("#")) return null;
+    let c = normalized.slice(1);
+    if (c.length === 3) {
+      c = c
+        .split("")
+        .map((ch) => ch + ch)
+        .join("");
+    }
+    if (c.length !== 6) return null;
+    const r = parseInt(c.slice(0, 2), 16);
+    const g = parseInt(c.slice(2, 4), 16);
+    const b = parseInt(c.slice(4, 6), 16);
+    return { r, g, b };
+  }
 
-  // Calculate relative luminance
-  const r = rgb.r / 255;
-  const g = rgb.g / 255;
-  const b = rgb.b / 255;
 
-  const gammaCorrect = (value) =>
-    value <= 0.03928 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
+  function getContrastTextColor(backgroundColor) {
+    const rgb = hexToRgb(backgroundColor);
+    if (!rgb) return "#000000"; // Default to black if invalid color
 
-  const rLinear = gammaCorrect(r);
-  const gLinear = gammaCorrect(g);
-  const bLinear = gammaCorrect(b);
+    // Calculate relative luminance
+    const r = rgb.r / 255;
+    const g = rgb.g / 255;
+    const b = rgb.b / 255;
 
-  const luminance = 0.2126 * rLinear + 0.7152 * gLinear + 0.0722 * bLinear;
+    const gammaCorrect = (value) =>
+      value <= 0.03928 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
 
-  // Use light text for dark backgrounds and vice versa
-  return luminance > 0.179 ? "#000000" : "#FFFFFF";
-}
+    const rLinear = gammaCorrect(r);
+    const gLinear = gammaCorrect(g);
+    const bLinear = gammaCorrect(b);
+
+    const luminance = 0.2126 * rLinear + 0.7152 * gLinear + 0.0722 * bLinear;
+
+    // Use light text for dark backgrounds and vice versa
+    return luminance > 0.179 ? "#000000" : "#FFFFFF";
+  }
 
 
 
@@ -1405,6 +1405,7 @@ template.${fn}(${argName});`);
     }
   }
 })(typeof window !== "" ? window : globalThis);
+
 
 
 
@@ -1863,18 +1864,21 @@ template.${fn}(${argName});`);
 //       gap: 4px;
 //     }
 //  .T1_content, .T1_inline-point, .T1_protection-message, .T1_bullet-points, .T1_additional-paragraphs {
-//       color: ${darkerTextColor};
+      
+//       color: ${c.toggleEnabled};
 //     }
 //     .T1_title {
 //       font-weight: 500;
 //       font-size: 14px;
-//       color: ${darkerTextColor};
+      
+//       color: ${c.toggleEnabled};
 //       margin: 0;
 //     }
 //     .T1_description {
 //       font-weight: 400;
 //       font-size: 12px;
-//       color: ${darkerTextColor};
+      
+//       color: ${c.toggleEnabled};
 //       margin: 0;
 //       line-height: 1.4;
 //     }
@@ -1952,7 +1956,8 @@ template.${fn}(${argName});`);
 //       align-items: center;
 //       gap: 6px;
 //       font-size: 12px;
-//       color: ${darkerTextColor};
+      
+//       color: ${c.toggleEnabled};
 //       font-weight: 500;
 //     }
 //     .T1_inline-point-icon {
@@ -1969,7 +1974,8 @@ template.${fn}(${argName});`);
 //       gap: 8px;
 //       font-size: 13px;
 //       font-weight: 500;
-//       color: ${darkerTextColor};
+      
+//       color: ${c.toggleEnabled};
 //     }
 //     .T1_protection-message {
 //       background: ${c.iconBackground};
@@ -1982,12 +1988,14 @@ template.${fn}(${argName});`);
 //     .T1_protection-message-title {
 //       font-size: 14px;
 //       font-weight: 600;
-//       color: ${darkerTextColor};
+      
+//       color: ${c.toggleEnabled};
 //       margin: 0 0 4px;
 //     }
 //     .T1_protection-message-subtext {
 //       font-size: 12px;
-//       color: ${darkerTextColor};
+      
+//       color: ${c.toggleEnabled};
 //       line-height: 1.4;
 //       margin: 0;
 //       opacity: 0.8;
@@ -2002,7 +2010,8 @@ template.${fn}(${argName});`);
 //     }
 //      .T1_additional-paragraphs p {
 //       font-size: 12px;
-//       color: ${darkerTextColor};
+      
+//       color: ${c.toggleEnabled};
 //       line-height: 1.4;
 //       margin: 0;
 //     }
@@ -2813,5 +2822,3 @@ template.${fn}(${argName});`);
 //     }
 //   }
 // })(typeof window !== "" ? window : globalThis);
-
-
