@@ -7,19 +7,19 @@
     // Built-in small SVG set for template bullets
     const SVG = {
         shield: `<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg`,
         users: `<svg width="20px" height="20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none">
-  <path fill="#000000" fill-rule="evenodd" d="M3 10a7 7 0 019.307-6.611 1 1 0 00.658-1.889 9 9 0 105.98 7.501 1 1 0 00-1.988.22A7 7 0 113 10zm14.75-5.338a1 1 0 00-1.5-1.324l-6.435 7.28-3.183-2.593a1 1 0 00-1.264 1.55l3.929 3.2a1 1 0 001.38-.113l7.072-8z"/>
+  <path fill="currentColor" fill-rule="evenodd" d="M3 10a7 7 0 019.307-6.611 1 1 0 00.658-1.889 9 9 0 105.98 7.501 1 1 0 00-1.988.22A7 7 0 113 10zm14.75-5.338a1 1 0 00-1.5-1.324l-6.435 7.28-3.183-2.593a1 1 0 00-1.264 1.55l3.929 3.2a1 1 0 001.38-.113l7.072-8z"/>
 </svg>`,
         lightning: `<svg width="20px" height="20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none">
-  <path fill="#000000" fill-rule="evenodd" d="M3 10a7 7 0 019.307-6.611 1 1 0 00.658-1.889 9 9 0 105.98 7.501 1 1 0 00-1.988.22A7 7 0 113 10zm14.75-5.338a1 1 0 00-1.5-1.324l-6.435 7.28-3.183-2.593a1 1 0 00-1.264 1.55l3.929 3.2a1 1 0 001.38-.113l7.072-8z"/>
+  <path fill="currentColor" fill-rule="evenodd" d="M3 10a7 7 0 019.307-6.611 1 1 0 00.658-1.889 9 9 0 105.98 7.501 1 1 0 00-1.988.22A7 7 0 113 10zm14.75-5.338a1 1 0 00-1.5-1.324l-6.435 7.28-3.183-2.593a1 1 0 00-1.264 1.55l3.929 3.2a1 1 0 001.38-.113l7.072-8z"/>
 </svg>`,
         star: `<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`,
         check: `<svg width="20px" height="20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none">
-  <path fill="#000000" fill-rule="evenodd" d="M3 10a7 7 0 019.307-6.611 1 1 0 00.658-1.889 9 9 0 105.98 7.501 1 1 0 00-1.988.22A7 7 0 113 10zm14.75-5.338a1 1 0 00-1.5-1.324l-6.435 7.28-3.183-2.593a1 1 0 00-1.264 1.55l3.929 3.2a1 1 0 001.38-.113l7.072-8z"/>
+  <path fill="currentColor" fill-rule="evenodd" d="M3 10a7 7 0 019.307-6.611 1 1 0 00.658-1.889 9 9 0 105.98 7.501 1 1 0 00-1.988.22A7 7 0 113 10zm14.75-5.338a1 1 0 00-1.5-1.324l-6.435 7.28-3.183-2.593a1 1 0 00-1.264 1.55l3.929 3.2a1 1 0 001.38-.113l7.072-8z"/>
 </svg>`
     };
 
@@ -57,6 +57,16 @@
         const R = Math.min(255, (num >> 16) + amt);
         const G = Math.min(255, ((num >> 8) & 0x00FF) + amt);
         const B = Math.min(255, (num & 0x0000FF) + amt);
+        return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+    }
+
+    function getDarkerColor(color, amount = 0.2) {
+        const hex = color.replace('#', '');
+        const num = parseInt(hex, 16);
+        const amt = Math.round(2.55 * amount * 100);
+        const R = Math.max(0, (num >> 16) - amt);
+        const G = Math.max(0, ((num >> 8) & 0x00FF) - amt);
+        const B = Math.max(0, (num & 0x0000FF) - amt);
         return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
     }
 
@@ -172,6 +182,8 @@
                 buttonText: "#ffffff",
                 badgeBg: "#5CC992", // Darker version of #72D9A3
                 badgeText: "#ffffff",
+                // SVG color control - single variable to control all SVG colors
+                svgColor: "#336B4A", // Default to slightly darker than base theme color
             }
         };
 
@@ -321,12 +333,14 @@
 
 
         function inlinePointsHTML() {
+            // Apply SVG color from theme settings
+            const svgColor = state.colors.svgColor || state.colors.textColor;
             return `
         <div class="T1_inline-points">
           ${state.inlinePoints
                     .map(
                         (p) => `
-            <div class="T1_inline-point">
+            <div class="T1_inline-point" style="color: ${svgColor}">
               ${svg(p.icon)}
               <span>${p.text}</span>
             </div>`
@@ -344,6 +358,9 @@
             const is = state.iconStyle;
             const ls = state.logoSettings;
             const toggleEnabledColor = state.colors.toggleEnabled;
+            const svgColor = state.colors.svgColor || state.colors.textColor;
+            // Make text slightly darker for better readability
+            const darkerTextColor = getDarkerColor(c.textColor, 0.1);
 
             s.textContent = `
     .T1_shipping-protection {
@@ -355,6 +372,9 @@
       gap: 12px;
       position: relative;
       transition: 0.3s;
+    }
+    .T1_shipping-protection svg, .T1_template2-container svg, .T1_template3-container svg {
+      color: ${svgColor};
     }
     .T1_icon-container {
       width: 55px;
@@ -385,13 +405,13 @@
     .T1_title {
       font-weight: 500;
       font-size: 14px;
-      color: ${c.textColor};
+      color: ${darkerTextColor};
       margin: 0;
     }
     .T1_description {
       font-weight: 400;
       font-size: 12px;
-      color: ${c.textColor};
+      color: ${darkerTextColor};
       margin: 0;
       line-height: 1.4;
     }
@@ -468,13 +488,13 @@
       align-items: center;
       gap: 6px;
       font-size: 12px;
-      color: ${c.textColor};
+      color: ${darkerTextColor};
       font-weight: 500;
     }
     .T1_inline-point-icon {
       width: 16px;
       height: 16px;
-      fill: ${c.textColor};
+      fill: ${darkerTextColor};
     }
     .T1_protection-added {
       background: ${c.iconBackground};
@@ -485,7 +505,7 @@
       gap: 8px;
       font-size: 13px;
       font-weight: 500;
-      color: ${c.textColor};
+      color: ${darkerTextColor};
     }
     .T1_protection-message {
       background: ${c.iconBackground};
@@ -498,12 +518,12 @@
     .T1_protection-message-title {
       font-size: 14px;
       font-weight: 600;
-      color: ${c.textColor};
+      color: ${darkerTextColor};
       margin: 0 0 4px;
     }
     .T1_protection-message-subtext {
       font-size: 12px;
-      color: ${c.textColor};
+      color: ${darkerTextColor};
       line-height: 1.4;
       margin: 0;
       opacity: 0.8;
@@ -518,7 +538,7 @@
     }
     .T1_additional-paragraphs p {
       font-size: 12px;
-      color: ${c.textColor};
+      color: ${darkerTextColor};
       line-height: 1.4;
       margin: 0;
     }
@@ -1274,9 +1294,7 @@ template.${fn}(${argName});`);
 
 
 
-
-
-// (function (global) {
+//   (function (global) {
 //     "use strict";
 
 //     const d = (sel, root = document) => root.querySelector(sel);
@@ -1284,11 +1302,21 @@ template.${fn}(${argName});`);
 
 //     // Built-in small SVG set for template bullets
 //     const SVG = {
-//         shield: `<svg width="20" height="20" class="T1_icon-shield" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/><path d="M9 12l2 2 4-4"/></svg>`,
-//         users: `<svg class="T1_icon-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-//         lightning: `<svg width="20" height="20" class="T1_icon-lightning" viewBox="0 0 24 24"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"/></svg>`,
-//         star: `<svg width="20" height="20" class="T1_icon-star" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"/></svg>`,
-//         check: `<svg width="20" height="20" class="T1_icon-check" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>`
+//         shield: `<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+// <path d="M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+// </svg`,
+//         users: `<svg width="20px" height="20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none">
+//   <path fill="#000000" fill-rule="evenodd" d="M3 10a7 7 0 019.307-6.611 1 1 0 00.658-1.889 9 9 0 105.98 7.501 1 1 0 00-1.988.22A7 7 0 113 10zm14.75-5.338a1 1 0 00-1.5-1.324l-6.435 7.28-3.183-2.593a1 1 0 00-1.264 1.55l3.929 3.2a1 1 0 001.38-.113l7.072-8z"/>
+// </svg>`,
+//         lightning: `<svg width="20px" height="20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none">
+//   <path fill="#000000" fill-rule="evenodd" d="M3 10a7 7 0 019.307-6.611 1 1 0 00.658-1.889 9 9 0 105.98 7.501 1 1 0 00-1.988.22A7 7 0 113 10zm14.75-5.338a1 1 0 00-1.5-1.324l-6.435 7.28-3.183-2.593a1 1 0 00-1.264 1.55l3.929 3.2a1 1 0 001.38-.113l7.072-8z"/>
+// </svg>`,
+//         star: `<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+// <path d="M11.245 4.174C11.4765 3.50808 11.5922 3.17513 11.7634 3.08285C11.9115 3.00298 12.0898 3.00298 12.238 3.08285C12.4091 3.17513 12.5248 3.50808 12.7563 4.174L14.2866 8.57639C14.3525 8.76592 14.3854 8.86068 14.4448 8.93125C14.4972 8.99359 14.5641 9.04218 14.6396 9.07278C14.725 9.10743 14.8253 9.10947 15.0259 9.11356L19.6857 9.20852C20.3906 9.22288 20.743 9.23007 20.8837 9.36432C21.0054 9.48051 21.0605 9.65014 21.0303 9.81569C20.9955 10.007 20.7146 10.2199 20.1528 10.6459L16.4387 13.4616C16.2788 13.5829 16.1989 13.6435 16.1501 13.7217C16.107 13.7909 16.0815 13.8695 16.0757 13.9507C16.0692 14.0427 16.0982 14.1387 16.1563 14.3308L17.506 18.7919C17.7101 19.4667 17.8122 19.8041 17.728 19.9793C17.6551 20.131 17.5108 20.2358 17.344 20.2583C17.1513 20.2842 16.862 20.0829 16.2833 19.6802L12.4576 17.0181C12.2929 16.9035 12.2106 16.8462 12.1211 16.8239C12.042 16.8043 11.9593 16.8043 11.8803 16.8239C11.7908 16.8462 11.7084 16.9035 11.5437 17.0181L7.71805 19.6802C7.13937 20.0829 6.85003 20.2842 6.65733 20.2583C6.49056 20.2358 6.34626 20.131 6.27337 19.9793C6.18915 19.8041 6.29123 19.4667 6.49538 18.7919L7.84503 14.3308C7.90313 14.1387 7.93218 14.0427 7.92564 13.9507C7.91986 13.8695 7.89432 13.7909 7.85123 13.7217C7.80246 13.6435 7.72251 13.5829 7.56262 13.4616L3.84858 10.6459C3.28678 10.2199 3.00588 10.007 2.97101 9.81569C2.94082 9.65014 2.99594 9.48051 3.11767 9.36432C3.25831 9.23007 3.61074 9.22289 4.31559 9.20852L8.9754 9.11356C9.176 9.10947 9.27631 9.10743 9.36177 9.07278C9.43726 9.04218 9.50414 8.99359 9.55657 8.93125C9.61593 8.86068 9.64887 8.76592 9.71475 8.57639L11.245 4.174Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+// </svg>`,
+//         check: `<svg width="20px" height="20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none">
+//   <path fill="#000000" fill-rule="evenodd" d="M3 10a7 7 0 019.307-6.611 1 1 0 00.658-1.889 9 9 0 105.98 7.501 1 1 0 00-1.988.22A7 7 0 113 10zm14.75-5.338a1 1 0 00-1.5-1.324l-6.435 7.28-3.183-2.593a1 1 0 00-1.264 1.55l3.929 3.2a1 1 0 001.38-.113l7.072-8z"/>
+// </svg>`
 //     };
 
 //     // Enhanced Custom Logo Collection - Support for 12 dynamic logos
@@ -1392,20 +1420,20 @@ template.${fn}(${argName});`);
 
 //             // Button block settings
 //             buttonBlock: {
-//                 buttonLabel: "Enable Protection",
+//                 buttonLabel: "Protected checkout + $12.11",
 //                 buttonHref: "https://example.com/cta",
 //                 paragraph: "One-line supporting text below the button."
 //             },
 
-//             // Enable protection control settings
+//             // Protected checkout + $12.11 control settings
 //             enableProtectionControl: {
 //                 enabled: true,
 //                 backgroundColor: "#49ae78",
-//                 textColor: "#ffffff",
+//                 textColor: "#000000",
 //                 disabledBackgroundColor: "#d1d5db",
 //                 disabledTextColor: "#6b7280",
 //                 enabledText: "Protection Enabled",
-//                 disabledText: "Enable Protection",
+//                 disabledText: "Protected checkout + $12.11",
 //                 showText: false,
 //                 borderRadius: 24,
 //                 borderWidth: 0,
@@ -1729,7 +1757,6 @@ template.${fn}(${argName});`);
 //       display: flex;
 //       justify-content: space-between;
 //       gap: 16px;
-//       margin: 12px 0;
 //       flex-wrap: wrap;
 //     }
 //     .T1_inline-point {
@@ -1752,7 +1779,6 @@ template.${fn}(${argName});`);
 //       display: flex;
 //       align-items: center;
 //       gap: 8px;
-//       margin: 12px 0;
 //       font-size: 13px;
 //       font-weight: 500;
 //       color: ${c.textColor};
@@ -1761,7 +1787,6 @@ template.${fn}(${argName});`);
 //       background: ${c.iconBackground};
 //       border-radius: 6px;
 //       padding: 12px;
-//       margin: 12px 0;
 //       display: flex;
 //       align-items: flex-start;
 //       gap: 10px;
@@ -1787,17 +1812,6 @@ template.${fn}(${argName});`);
 //       flex-direction: column;
 //       gap: 6px;
 //     }
-//     .T1_bullet-points li {
-//       font-size: 12px;
-//       color: ${c.textColor};
-//       line-height: 1.4;
-//     }
-//     .T1_additional-paragraphs {
-//       margin: 8px 0;
-//       display: flex;
-//       flex-direction: column;
-//       gap: 8px;
-//     }
 //     .T1_additional-paragraphs p {
 //       font-size: 12px;
 //       color: ${c.textColor};
@@ -1809,16 +1823,16 @@ template.${fn}(${argName});`);
 //       color: ${toggleEnabledColor};
 //       font-weight: 500;
 //       margin-top: 4px;
-//       opacity: 0;
+//       display: none;
 //       transition: opacity 0.3s;
 //     }
 //     .T1_confirmation-message.T1_visible {
-//       opacity: 1;
+//      display: block;
 //     }
 //     .T1_badge {
 //       position: absolute;
-//       top: -8px;
-//       right: -8px;
+//       top: -12px;
+//     right: -12px;
 //       background: ${c.badgeBg};
 //       color: ${c.badgeText};
 //       font-size: 10px;
@@ -1827,13 +1841,13 @@ template.${fn}(${argName});`);
 //       border-radius: 12px;
 //       text-transform: uppercase;
 //       letter-spacing: 0.5px;
-//       opacity: 0;
+//       display: none;
 //       transform: scale(0.8);
 //       transition: 0.3s;
 //       z-index: 10;
 //     }
 //     .T1_badge.T1_visible {
-//       opacity: 1;
+//       display: block;
 //       transform: scale(1);
 //     }
 //     .T1_checkbox {
@@ -1849,7 +1863,7 @@ template.${fn}(${argName});`);
 //       align-items: center;
 //       padding: 12px;
 //       border-radius: 8px;
-//       background: ${c.backgroundColor};
+      
 //     }
 //     .T1_protection-button {
 //       background: ${c.buttonBg};
@@ -2009,8 +2023,6 @@ template.${fn}(${argName});`);
 //           ` : ""}
 
 //           ${showCheckoutMsg ? `<div class="T1_checkout-button-message">${state.checkoutButtonMessage}</div>` : ""}
-
-//           <!-- CTA Button removed -->
 //         </div>`;
 //         }
 
