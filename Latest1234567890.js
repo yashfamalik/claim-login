@@ -1,4 +1,4 @@
- (function (global) {
+  (function (global) {
     "use strict";
 
     const d = (sel, root = document) => root.querySelector(sel);
@@ -350,9 +350,11 @@
         }
 
         function checkboxHTML() {
+            // Make text color slightly darker for better readability
+            const darkerTextColor = getDarkerColor(state.colors.textColor, 0.2);
             return `
         <input type="checkbox" class="T1_checkbox" id="T1_protection_checkbox" ${state.isEnabled ? "checked" : ""}/>
-        <label for="T1_protection_checkbox" style="cursor:pointer;margin-left:4px;font-size:12px;color:${state.colors.textColor};"></label>
+        <label for="T1_protection_checkbox" style="cursor:pointer;margin-left:4px;font-size:12px;color:${darkerTextColor};"></label>
       `;
         }
 
@@ -1335,7 +1337,8 @@ template.${fn}(${argName});`);
 
 
 
-//   (function (global) {
+
+//  (function (global) {
 //     "use strict";
 
 //     const d = (sel, root = document) => root.querySelector(sel);
@@ -1388,23 +1391,59 @@ template.${fn}(${argName});`);
 
 //     // Utility function for color manipulation
 //     function getLighterColor(color, amount = 0.2) {
-//         const hex = color.replace('#', '');
-//         const num = parseInt(hex, 16);
-//         const amt = Math.round(2.55 * amount * 100);
-//         const R = Math.min(255, (num >> 16) + amt);
-//         const G = Math.min(255, ((num >> 8) & 0x00FF) + amt);
-//         const B = Math.min(255, (num & 0x0000FF) + amt);
-//         return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+//         if (!color || typeof color !== "string") return color;
+        
+//         // Remove # if present
+//         let hex = color.replace("#", "");
+        
+//         // If 3-digit hex, convert to 6-digit
+//         if (hex.length === 3) {
+//             hex = hex.split("").map(char => char + char).join("");
+//         }
+        
+//         // Parse RGB values
+//         const r = parseInt(hex.substr(0, 2), 16);
+//         const g = parseInt(hex.substr(2, 2), 16);
+//         const b = parseInt(hex.substr(4, 2), 16);
+        
+//         // Lighten each component
+//         const lighten = (value) => Math.max(0, Math.min(255, Math.floor(value + (255 - value) * amount)));
+        
+//         // Convert back to hex
+//         const toHex = (n) => {
+//             const hex = Math.round(Math.max(0, Math.min(255, n))).toString(16);
+//             return hex.length === 1 ? "0" + hex : hex;
+//         };
+        
+//         return `#${toHex(lighten(r))}${toHex(lighten(g))}${toHex(lighten(b))}`;
 //     }
 
 //     function getDarkerColor(color, amount = 0.2) {
-//         const hex = color.replace('#', '');
-//         const num = parseInt(hex, 16);
-//         const amt = Math.round(2.55 * amount * 100);
-//         const R = Math.max(0, (num >> 16) - amt);
-//         const G = Math.max(0, ((num >> 8) & 0x00FF) - amt);
-//         const B = Math.max(0, (num & 0x0000FF) - amt);
-//         return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+//         if (!color || typeof color !== "string") return color;
+        
+//         // Remove # if present
+//         let hex = color.replace("#", "");
+        
+//         // If 3-digit hex, convert to 6-digit
+//         if (hex.length === 3) {
+//             hex = hex.split("").map(char => char + char).join("");
+//         }
+        
+//         // Parse RGB values
+//         const r = parseInt(hex.substr(0, 2), 16);
+//         const g = parseInt(hex.substr(2, 2), 16);
+//         const b = parseInt(hex.substr(4, 2), 16);
+        
+//         // Darken each component
+//         const darken = (value) => Math.max(0, Math.min(255, Math.floor(value * (1 - amount))));
+        
+//         // Convert back to hex
+//         const toHex = (n) => {
+//             const hex = Math.round(Math.max(0, Math.min(255, n))).toString(16);
+//             return hex.length === 1 ? "0" + hex : hex;
+//         };
+        
+//         return `#${toHex(darken(r))}${toHex(darken(g))}${toHex(darken(b))}`;
 //     }
 
 //     function Template1(containerId, options = {}) {
@@ -1672,12 +1711,14 @@ template.${fn}(${argName});`);
 //         function inlinePointsHTML() {
 //             // Apply SVG color from theme settings
 //             const svgColor = state.colors.svgColor || getLighterColor(state.colors.textColor, 0.3);
+//             // Make text color slightly darker for better readability
+//             const darkerTextColor = getDarkerColor(state.colors.textColor, 0.2);
 //             return `
 //         <div class="T1_inline-points">
 //           ${state.inlinePoints
 //                     .map(
 //                         (p) => `
-//             <div class="T1_inline-point" style="color: ${svgColor}">
+//             <div class="T1_inline-point" style="color: ${darkerTextColor}">
 //               ${svg(p.icon)}
 //               <span>${p.text}</span>
 //             </div>`
@@ -1697,7 +1738,9 @@ template.${fn}(${argName});`);
 //             const toggleEnabledColor = state.colors.toggleEnabled;
 //             const svgColor = state.colors.svgColor || getLighterColor(state.colors.textColor, 0.3);
 //             // Make text slightly darker for better readability
-//             const darkerTextColor = getDarkerColor(c.textColor, 0.1);
+//             const darkerTextColor = getDarkerColor(c.textColor, 0.2);
+//             // Make SVG color slightly darker for better contrast with background
+//             const svgDarkerColor = getDarkerColor(svgColor, 0.1);
 
 //             s.textContent = `
 //     .T1_shipping-protection {
@@ -1711,7 +1754,7 @@ template.${fn}(${argName});`);
 //       transition: 0.3s;
 //     }
 //     .T1_shipping-protection svg, .T1_template2-container svg, .T1_template3-container svg {
-//       color: ${svgColor};
+//       color: ${svgDarkerColor};
 //     }
 //     .T1_icon-container {
 //       width: 55px;
