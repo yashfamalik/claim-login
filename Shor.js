@@ -165,6 +165,33 @@
       return `<div class="T1_logo-container" style="max-width:${maxWidth}px;max-height:${maxHeight}px;overflow:hidden;margin-right:8px"><img src="${logoUrl}" alt="${alt}" style="max-width:100%;max-height:100%;object-fit:contain"/></div>`;
     }
 
+      function getDarkerColor(color, amount = 0.2) {
+    if (!color || typeof color !== "string") return color;
+
+    // Remove # if present
+    let hex = color.replace("#", "");
+
+    // If 3-digit hex, convert to 6-digit
+    if (hex.length === 3) {
+      hex = hex.split("").map(char => char + char).join("");
+    }
+
+    // Parse RGB values
+    const r = parseInt(hex.substr(0, 2), 16);
+    const g = parseInt(hex.substr(2, 2), 16);
+    const b = parseInt(hex.substr(4, 2), 16);
+
+    // Darken each component
+    const darken = (value) => Math.max(0, Math.min(255, Math.floor(value * (1 - amount))));
+
+    // Convert back to hex
+    const toHex = (n) => {
+      const hex = Math.round(Math.max(0, Math.min(255, n))).toString(16);
+      return hex.length === 1 ? "0" + hex : hex;
+    };
+
+    return `#${toHex(darken(r))}${toHex(darken(g))}${toHex(darken(b))}`;
+  }
     function checkboxHTML() {
       const darkerTextColor = getDarkerColor(state.colors.textColor, 0.2);
       return `<input type="checkbox" class="T1_checkbox" id="T1_protection_checkbox" ${state.isEnabled ? "checked" : ""}/><label for="T1_protection_checkbox" style="cursor:pointer;margin-left:4px;font-size:12px;color:${darkerTextColor};"></label>`;
@@ -996,8 +1023,6 @@
     }
   }
 })(typeof window !== "" ? window : globalThis);
-
-
 
 
 
