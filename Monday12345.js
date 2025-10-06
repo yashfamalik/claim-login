@@ -1,3 +1,5 @@
+// Template.js
+
 (function (global) {
   "use strict";
 
@@ -540,7 +542,7 @@
       fill: ${darkerTextColor};
     }
     .T1_protection-added {
-      background: ${c.iconBackground};
+      border: 1px solid ${c.iconBackground};
       border-radius: 6px;
       padding: 10px 12px;
       display: flex;
@@ -551,7 +553,7 @@
       color: ${textColor};
     }
     .T1_protection-message {
-      background: ${c.iconBackground};
+      border:1px solid ${c.iconBackground};
       border-radius: 6px;
       padding: 12px;
       display: flex;
@@ -773,12 +775,16 @@
 
           ${showDetail ? `
             <div class="T1_protection-added">
-              ${svg("check")}
+            <div class="T1_icon-container">
+            ${svg("check")}
+            </div>
               <span>${state.protectionAddedText} (+$${state.protectionPrice.toFixed(2)})</span>
             </div>
 
             <div class="T1_protection-message">
+             <div class="T1_icon-container">
               ${svg("shield")}
+              </div>
               <div class="T1_protection-message-content">
                 <p class="T1_protection-message-title">${state.protectionMessage.title}</p>
                 <p class="T1_protection-message-subtext">${state.protectionMessage.subtext}</p>
@@ -1400,6 +1406,8 @@ template.${fn}(${argName});`);
 
 
 
+
+
 // (function (global) {
 //   "use strict";
 
@@ -1791,18 +1799,18 @@ template.${fn}(${argName});`);
 //         </div>`;
 //     }
 
-//     function injectStyles() {
-//       const id = "T1_template-styles";
-//       d(`#${id}`)?.remove();
-//       const s = document.createElement("style");
-//       s.id = id;
-//       const c = state.colors;
-//       const backgroundColor = c.useGradient ? c.gradientStart : c.backgroundColor;
-//       const textColor = c.textColor;
-//       const darkerTextColor = getDarkerColor(textColor, 0.2);
-//       const svgDarkerColor = getDarkerColor(textColor, 0.1);
+//   function injectStyles() {
+//   const id = "T1_template-styles";
+//   d(`#${id}`)?.remove();
+//   const s = document.createElement("style");
+//   s.id = id;
+//   const c = state.colors;
+//   const backgroundColor = c.useGradient ? c.gradientStart : c.backgroundColor;
+//   const textColor = c.textColor;
+//   const darkerTextColor = getDarkerColor(textColor, 0.2);
+//   const svgDarkerColor = getDarkerColor(textColor, 0.1);
 
-//       s.textContent = `
+//   s.textContent = `
 //     .T1_shipping-protection {
 //       background: ${c.useGradient ? `linear-gradient(135deg, ${c.gradientStart}, ${c.gradientEnd})` : c.backgroundColor};
 //       border-radius: 8px;
@@ -1866,7 +1874,7 @@ template.${fn}(${argName});`);
 //       cursor: pointer;
 //       width: 44px;
 //       height: 24px;
-//       accent-color: ${c.toggleEnabled}; // Use toggleEnabled color instead of textColor
+//       accent-color: ${c.toggleEnabled};
 //     }
 //     .T1_toggle input[type="checkbox"] {
 //       opacity: 0;
@@ -1886,7 +1894,7 @@ template.${fn}(${argName});`);
 //       transition: background-color 0.3s;
 //     }
 //     .T1_toggle input[type="checkbox"]:checked + .toggle-track {
-//       background-color: ${c.toggleEnabled}; // Use toggleEnabled color
+//       background-color: ${c.toggleEnabled};
 //     }
 //     .T1_toggle .toggle-handle {
 //       position: absolute;
@@ -2034,8 +2042,8 @@ template.${fn}(${argName});`);
 //       border-radius: 8px;
 //     }
 //     .T1_protection-button {
-//       background: ${c.buttonBg};
-//       color: ${getContrastTextColor(c.buttonBg)};
+//       background: ${c.useGradient ? `linear-gradient(135deg, ${c.gradientStart}, ${c.gradientEnd})` : c.buttonBg};
+//       color: ${c.buttonText};
 //       border: 0;
 //       border-radius: 6px;
 //       padding: 12px 24px;
@@ -2109,11 +2117,8 @@ template.${fn}(${argName});`);
 //       border-color: #3b82f6;
 //     }
 //   `;
-//       document.head.appendChild(s);
-//     }
-
-
-
+//   document.head.appendChild(s);
+// }
 
 //     function render() {
 //       if (state.selectionMode === "button") return renderButtonMode();
