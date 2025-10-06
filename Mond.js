@@ -389,25 +389,23 @@
         </div>`;
     }
 
-   function injectStyles() {
-  const id = "T1_template-styles";
-  d(`#${id}`)?.remove();
-  const s = document.createElement("style");
-  s.id = id;
-  const c = state.colors;
-  const is = state.iconStyle;
-  const ls = state.logoSettings;
-  const toggleEnabledColor = state.colors.toggleEnabled;
+    function injectStyles() {
+      const id = "T1_template-styles";
+      d(`#${id}`)?.remove();
+      const s = document.createElement("style");
+      s.id = id;
+      const c = state.colors;
 
-  // Calculate text color based on background luminance only if not explicitly set
-  const backgroundColor = c.useGradient ? c.gradientStart : c.backgroundColor;
-  const textColor = c.textColor || getContrastTextColor(backgroundColor);
+      // Calculate text color based on background luminance
+      const backgroundColor = c.useGradient ? c.gradientStart : c.backgroundColor;
+      const textColor = c.textColor || getContrastTextColor(backgroundColor);
 
-  // Use the calculated text color
-  const darkerTextColor = getDarkerColor(textColor, 0.2);
-  const svgDarkerColor = getDarkerColor(textColor, 0.1);
+      // Use the calculated text color
+      const darkerTextColor = getDarkerColor(textColor, 0.2);
+      const svgDarkerColor = getDarkerColor(textColor, 0.1);
 
-      s.textContent = `
+
+     s.textContent = `
     .T1_shipping-protection {
       background: ${c.useGradient ? `linear-gradient(135deg, ${c.gradientStart}, ${c.gradientEnd})` : c.backgroundColor};
       border-radius: 8px;
@@ -448,7 +446,7 @@
       flex-direction: column;
       gap: 4px;
     }
-      .T1_content, .T1_inline-point, .T1_protection-message, .T1_bullet-points, .T1_additional-paragraphs {
+ .T1_content, .T1_inline-point, .T1_protection-message, .T1_bullet-points, .T1_additional-paragraphs {
       color: ${darkerTextColor};
     }
     .T1_title {
@@ -464,14 +462,14 @@
       margin: 0;
       line-height: 1.4;
     }
-    .T1_toggle {
+      .T1_toggle {
       position: relative;
       display: inline-flex;
       align-items: center;
       cursor: pointer;
       width: 44px;
       height: 24px;
-      accent-color: ${toggleEnabledColor};
+      accent-color: ${c.toggleEnabled};
     }
     .T1_toggle input[type="checkbox"] {
       opacity: 0;
@@ -491,7 +489,7 @@
       transition: background-color 0.3s;
     }
     .T1_toggle input[type="checkbox"]:checked + .toggle-track {
-      background-color: ${toggleEnabledColor};
+      background-color: ${c.toggleEnabled};
     }
     .T1_toggle .toggle-handle {
       position: absolute;
@@ -514,6 +512,7 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      color: ${textColor}; /* Apply dynamic text color */
     }
     .T1_main-widget {
       display: flex;
@@ -532,7 +531,7 @@
       gap: 16px;
       flex-wrap: wrap;
     }
-    .T1_inline-point {
+   .T1_inline-point {
       display: flex;
       align-items: center;
       gap: 6px;
@@ -585,7 +584,7 @@
       flex-direction: column;
       gap: 6px;
     }
-    .T1_additional-paragraphs p {
+     .T1_additional-paragraphs p {
       font-size: 12px;
       color: ${darkerTextColor};
       line-height: 1.4;
@@ -593,7 +592,7 @@
     }
     .T1_confirmation-message {
       font-size: 12px;
-      color: ${toggleEnabledColor};
+      color: ${c.toggleEnabled};
       font-weight: 500;
       margin-top: 4px;
       display: none;
@@ -602,10 +601,10 @@
     .T1_confirmation-message.T1_visible {
      display: block;
     }
-    .T1_badge {
+      .T1_badge {
       position: absolute;
       top: -12px;
-    right: -12px;
+      right: -12px;
       background: ${c.badgeBg};
       color: ${c.badgeText};
       font-size: 10px;
@@ -623,10 +622,10 @@
       display: block;
       transform: scale(1);
     }
-    .T1_checkbox {
+     .T1_checkbox {
       width: 18px;
       height: 18px;
-      accent-color: ${toggleEnabledColor};
+      accent-color: ${c.toggleEnabled};
       cursor: pointer;
     }
     .T1_button-mode {
@@ -638,7 +637,7 @@
       border-radius: 8px;
       
     }
- .T1_protection-button {
+  .T1_protection-button {
       background: ${c.buttonBg};
       color: ${getContrastTextColor(c.buttonBg)};
       border: 0;
@@ -661,9 +660,9 @@
       text-align: center;
       line-height: 1.4;
     }
-    .T1_logo-container {
-      max-width: ${ls.maxWidth}px;
-      max-height: ${ls.maxHeight}px;
+   T1_logo-container {
+      max-width: ${state.logoSettings.maxWidth}px;
+      max-height: ${state.logoSettings.maxHeight}px;
       overflow: hidden;
       margin-right: 8px;
     }
@@ -672,15 +671,15 @@
       max-height: 100%;
       object-fit: contain;
     }
-    .T1_icon-custom {
-      width: ${is.size}px;
-      height: ${is.size}px;
-      color: ${is.color};
+   .T1_icon-custom {
+      width: ${state.iconStyle.size}px;
+      height: ${state.iconStyle.size}px;
+      color: ${state.iconStyle.color};
       display: flex;
       align-items: center;
     }
-    .T1_icon-uploaded {
-      background: linear-gradient(135deg, ${is.background}, ${getLighterColor(is.background)});
+  .T1_icon-uploaded {
+      background: linear-gradient(135deg, ${state.iconStyle.background}, ${getLighterColor(state.iconStyle.background)});
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
     .T1_icon-custom:hover {
@@ -1398,7 +1397,6 @@ template.${fn}(${argName});`);
     }
   }
 })(typeof window !== "" ? window : globalThis);
-
 
 
 
