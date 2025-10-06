@@ -535,8 +535,8 @@
     }
     .T1_badge {
       position: absolute;
-      top: -8px;
-      right: -12px;
+      top: -12px;
+    right: -12px;
       background: ${c.badgeBg};
       color: ${c.badgeText};
       font-size: 10px;
