@@ -554,16 +554,16 @@
       font-weight: 500;
       color: ${darkerTextColor}; // Use darker text color
       }
-      .T1_protection-added ,
-      .T1_protection-message {
-        border-radius: 6px;
-        padding: 10px 12px;
-        display: flex;
+     .T1_protection-added ,
+    .T1_protection-message {
+      border-radius: 6px;
+      padding: 10px 12px;
+      display: flex;
       border:1px solid ${c.iconBackground};
-       background: ${c.useGradient ? `linear-gradient(135deg, ${c.gradientStart}, ${c.gradientEnd})` : c.backgroundColor};
-       gap: 10px;
-       align-items: flex-start;
-  }
+      background-color: rgba(${hexToRgb(c.backgroundColor)?.r || 255}, ${hexToRgb(c.backgroundColor)?.g || 255}, ${hexToRgb(c.backgroundColor)?.b || 255}, 0.9);
+      gap: 10px;
+      align-items: flex-start;
+    }
        .T1_protection-added, .T1_protection-message-title{
        }
        font-size: 14px;
