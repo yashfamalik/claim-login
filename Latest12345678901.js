@@ -971,6 +971,9 @@
                 if (k in state.colors) state.colors[k] = colors[k];
             });
             injectStyles();
+            // Re-render to update inline styles with new colors
+            render();
+            bindEvents();
         }
 
         function updateSelectionMode({ mode } = {}) {
@@ -1338,7 +1341,7 @@ template.${fn}(${argName});`);
 
 
 
-//  (function (global) {
+//   (function (global) {
 //     "use strict";
 
 //     const d = (sel, root = document) => root.querySelector(sel);
@@ -1690,9 +1693,11 @@ template.${fn}(${argName});`);
 //         }
 
 //         function checkboxHTML() {
+//             // Make text color slightly darker for better readability
+//             const darkerTextColor = getDarkerColor(state.colors.textColor, 0.2);
 //             return `
 //         <input type="checkbox" class="T1_checkbox" id="T1_protection_checkbox" ${state.isEnabled ? "checked" : ""}/>
-//         <label for="T1_protection_checkbox" style="cursor:pointer;margin-left:4px;font-size:12px;color:${state.colors.textColor};"></label>
+//         <label for="T1_protection_checkbox" style="cursor:pointer;margin-left:4px;font-size:12px;color:${darkerTextColor};"></label>
 //       `;
 //         }
 
