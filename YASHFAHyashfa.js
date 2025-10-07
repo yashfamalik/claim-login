@@ -190,7 +190,7 @@
         buttonText: "#ffffff",
         badgeBg: "#5CC992",
         badgeText: "#ffffff",
-        svgColor: "#ffffff",
+        svgColor: "#3aaf3c",
       }
     };
 
@@ -336,7 +336,9 @@
           .map(
             (p) => `
             <div class="T1_inline-point" style="color: ${darkerTextColor}">
-              ${p.icon ? `<div style="color: ${svgColor} !important; fill: ${svgColor} !important;">${svg(p.icon)}</div>` : ''}
+              ${p.icon ? `<div style="color: ${svgColor} !important; 
+              // fill: ${svgColor} !important;
+              ">${svg(p.icon)}</div>` : ''}
               <span>${p.text}</span>
             </div>`
           )
@@ -507,7 +509,7 @@
     .T1_inline-point svg {
       width: 16px;
       height: 16px;
-      fill: ${svgColor} !important;
+      // fill: ${svgColor} !important;
       color: ${svgColor} !important;
     }
     .T1_protection-added {
