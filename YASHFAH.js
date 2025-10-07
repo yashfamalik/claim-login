@@ -565,9 +565,10 @@
       gap: 10px;
       align-items: flex-start;
     }
-       .T1_protection-added, .T1_protection-message-title{
-       font-size: 14px;
-    .T1_protection-message-title {
+   .T1_protection-added, .T1_protection-message-title{
+      font-size: 14px;
+      }
+      .T1_protection-message-title {
       font-weight: 600;
       color: ${darkerTextColor}; 
       margin: 0 0 4px;
