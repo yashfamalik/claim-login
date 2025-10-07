@@ -369,7 +369,7 @@
     }
     .T1_shipping-protection svg, .T1_template2-container svg, .T1_template3-container svg {
       color: ${svgColor} !important;
-      fill: ${svgColor} !important;
+      // fill: ${svgColor} !important;
     }
     .T1_icon-container, .T1_icon-container-message {
       background: ${c.iconBackground};
