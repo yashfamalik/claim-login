@@ -162,7 +162,7 @@
 
       // Icon style
       iconStyle: {
-        size: 24,
+        size: 32,
         color: "#111111",
         background: "#F5F5F5",
         borderColor: "#E5E7EB",
