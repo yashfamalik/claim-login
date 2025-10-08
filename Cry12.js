@@ -588,7 +588,7 @@
     /* font-weight: 500; */
     flex: 1;
     /* min-width: 0; */
-    /* visibility: visible !important;
+    /* visibility: visible !important;*/
     }
     .T1_inline-point {
       display: flex !important;
