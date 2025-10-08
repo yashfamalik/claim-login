@@ -364,26 +364,42 @@
         );
       }
 
-      const html = `
-  <div class="T1_inline-points">
-    ${points
-          .map(
-            (p) => `
-         <div class="T1_inline-points">
-      ${points.map(p => `
-        <div class="T1_inline-point">
-          ${p.icon ? `
-            <span class="T1_bullet-icon">
-              ${svg(p.icon).replace(/stroke="currentColor"/g, `stroke="${svgColor}"`)}
-            </span>
-          ` : ''}
-          <span>${p.text}</span>
-        </div>
-      `).join('')}
-    </div>`
-          )
-          .join("")}
-  </div>`;
+
+       const html = `
+        <div class="T1_inline-points">
+          ${points.map(p => `
+            <div class="T1_inline-point">
+              ${p.icon ? `
+                <span class="T1_bullet-icon">
+                        ${svg(p.icon).replace(/stroke="currentColor"/g, `stroke="${svgColor}"`)}
+                      </span>
+                    ` : ''}
+                  <span>${p.text}</span>
+                </div>
+              `).join('')}
+        </div>`;
+
+      
+  //     const html = `
+  // <div class="T1_inline-points">
+  //   ${points
+  //         .map(
+  //           (p) => `
+  //        <div class="T1_inline-points">
+  //     ${points.map(p => `
+  //       <div class="T1_inline-point">
+  //         ${p.icon ? `
+  //           <span class="T1_bullet-icon">
+  //             ${svg(p.icon).replace(/stroke="currentColor"/g, `stroke="${svgColor}"`)}
+  //           </span>
+  //         ` : ''}
+  //         <span>${p.text}</span>
+  //       </div>
+  //     `).join('')}
+  //   </div>`
+  //         )
+  //         .join("")}
+  // </div>`;
 
       // Debug: Log generated HTML
       console.log("Template.js - Generated bullet points HTML:", html.substring(0, 200) + "...");
@@ -563,13 +579,16 @@
       flex-wrap: wrap;
     }
     .T1_inline-points {
-      display: flex !important;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin: 10px 0;
-      width: 100%;
-      visibility: visible !important;
+     /* display: flex !important; */
+    /* align-items: center; */
+    justify-content: center;
+    gap: 6px;
+    /* font-size: 12px; */
+    /* color: #000000; */
+    /* font-weight: 500; */
+    flex: 1;
+    /* min-width: 0; */
+    /* visibility: visible !important;
     }
     .T1_inline-point {
       display: flex !important;
@@ -600,13 +619,13 @@
     .T1_bullet-icon {
       flex-shrink: 0;
       display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      width: 20px !important;
-      height: 20px !important;
-      margin-right: 8px !important;
-      border: 1px solid rgba(0,0,0,0.1) !important;
-      border-radius: 3px !important;
+      // align-items: center !important;
+      // justify-content: center !important;
+      // width: 20px !important;
+      // height: 20px !important;
+      // margin-right: 8px !important;
+      // border: 1px solid rgba(0,0,0,0.1) !important;
+      // border-radius: 3px !important;
     }
     .T1_protection-added {
       font-weight: 500;
@@ -842,6 +861,7 @@
             .replace(/<svg/, `<svg role="img" aria-label="Protection added"`)}
               </div>
               <span>${state.protectionAddedText}</span>
+              <br />
               <span> (+$${state.protectionPrice.toFixed(2)})</span>
             </div>
 
