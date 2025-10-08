@@ -3,7 +3,7 @@
 
   // Import color utility functions from centralized colorUtils.js
   const { adjustColor, getDarkerColor, getLighterColor, hexToRgbaString } = global.colorUtils || {};
-  
+
   const d = (sel, root = document) => root.querySelector(sel);
   const da = (sel, root = document) => root.querySelectorAll(sel);
 
@@ -48,51 +48,7 @@
     return o;
   }
 
-  function getLighterColor(color, amount = 0.2) {
-    if (!color || typeof color !== "string") return color;
 
-    let hex = color.replace("#", "");
-
-    if (hex.length === 3) {
-      hex = hex.split("").map(char => char + char).join("");
-    }
-
-    const r = parseInt(hex.substr(0, 2), 16);
-    const g = parseInt(hex.substr(2, 2), 16);
-    const b = parseInt(hex.substr(4, 2), 16);
-
-    const lighten = (value) => Math.max(0, Math.min(255, Math.floor(value + (255 - value) * amount)));
-
-    const toHex = (n) => {
-      const hex = Math.round(Math.max(0, Math.min(255, n))).toString(16);
-      return hex.length === 1 ? "0" + hex : hex;
-    };
-
-    return `#${toHex(lighten(r))}${toHex(lighten(g))}${toHex(lighten(b))}`;
-  }
-
-  function getDarkerColor(color, amount = 0.2) {
-    if (!color || typeof color !== "string") return color;
-
-    let hex = color.replace("#", "");
-
-    if (hex.length === 3) {
-      hex = hex.split("").map(char => char + char).join("");
-    }
-
-    const r = parseInt(hex.substr(0, 2), 16);
-    const g = parseInt(hex.substr(2, 2), 16);
-    const b = parseInt(hex.substr(4, 2), 16);
-
-    const darken = (value) => Math.max(0, Math.min(255, Math.floor(value * (1 - amount))));
-
-    const toHex = (n) => {
-      const hex = Math.round(Math.max(0, Math.min(255, n))).toString(16);
-      return hex.length === 1 ? "0" + hex : hex;
-    };
-
-    return `#${toHex(darken(r))}${toHex(darken(g))}${toHex(darken(b))}`;
-  }
 
   function Template(containerId, options = {}) {
     const self = ensureInstance(this);
@@ -102,7 +58,7 @@
       console.error(`Container with ID ${containerId} not found`);
       return self || {};
     }
-    
+
     const DEFAULT_SETTINGS = {
       activeTemplate: "Template",
       isEnabled: true,
@@ -325,7 +281,7 @@
     function bulletPointsHTML() {
       const svgColor = state.colors.svgColor || getLighterColor(state.colors.textColor, 0.3);
       const darkerTextColor = getDarkerColor(state.colors.textColor, 0.2);
-      
+
       // Handle both object format {text, icon} and string format
       const points = state.bulletPoints.map(p => {
         if (typeof p === 'string') {
@@ -334,7 +290,7 @@
         }
         return p;
       });
-      
+
       // Always render the bullet points, don't hide them based on conditions
       return `
         <div class="T1_inline-points">
@@ -350,18 +306,18 @@
         </div>`;
     }
 
-  function injectStyles() {
-  const id = "T1_template-styles";
-  d(`#${id}`)?.remove();
-  const s = document.createElement("style");
-  s.id = id;
-  const c = state.colors;
-  const backgroundColor = c.useGradient ? c.gradientStart : c.backgroundColor;
-  const textColor = c.textColor;
-  const darkerTextColor = getDarkerColor(textColor, 0.2);
-  const svgColor = c.svgColor || getLighterColor(textColor, 0.3);
+    function injectStyles() {
+      const id = "T1_template-styles";
+      d(`#${id}`)?.remove();
+      const s = document.createElement("style");
+      s.id = id;
+      const c = state.colors;
+      const backgroundColor = c.useGradient ? c.gradientStart : c.backgroundColor;
+      const textColor = c.textColor;
+      const darkerTextColor = getDarkerColor(textColor, 0.2);
+      const svgColor = c.svgColor || getLighterColor(textColor, 0.3);
 
-  s.textContent = `
+      s.textContent = `
     .T1_shipping-protection {
       background: ${c.useGradient ? `linear-gradient(135deg, ${c.gradientStart}, ${c.gradientEnd})` : c.backgroundColor};
       border-radius: 8px;
@@ -679,8 +635,8 @@
       border-color: #3b82f6;
     }
   `;
-  document.head.appendChild(s);
-}
+      document.head.appendChild(s);
+    }
 
 
     function render() {
@@ -924,7 +880,7 @@
       keys.forEach((k) => {
         if (settings[k] !== undefined) state[k] = settings[k];
       });
-      
+
       if (settings.protectionMessageTitle !== undefined)
         state.protectionMessage.title = settings.protectionMessageTitle;
       if (settings.protectionMessageSubtext !== undefined)
