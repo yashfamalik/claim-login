@@ -278,7 +278,8 @@
     }
     function checkboxHTML() {
       const darkerColorFn = getDarkerColor || fallbackGetDarkerColor;
-      const darkerTextColor = darkerColorFn(state.colors.textColor, 0.2);
+      const darkerTextColor = darkerColorFn(state.colors.textColor);
+      // const darkerTextColor = darkerColorFn(state.colors.textColor, 0.2);
       return `
         <input type="checkbox" class="T1_checkbox" id="T1_protection_checkbox_${self.instanceId || Date.now()}" ${state.isEnabled ? "checked" : ""}/>
         <label for="T1_protection_checkbox_${self.instanceId || Date.now()}" style="cursor:pointer;margin-left:4px;font-size:12px;color:${darkerTextColor};"></label>
