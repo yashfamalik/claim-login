@@ -279,7 +279,7 @@
       if (state.iconAsset.type === "custom" && state.iconAsset.url) {
         return `
           <div class="T1_icon-custom">
-            <img src="${state.iconAsset.url}" style="width:100%;height:100%;object-fit:contain" alt="Custom icon"/>
+            <img src="${state.iconAsset.url}" style="width:${state.iconStyle.size}px;height:${state.iconStyle.size}px;object-fit:contain" alt="Custom icon"/>
           </div>`;
       }
       const logoKey = state.iconAsset.name || "logo1";
@@ -289,7 +289,7 @@
         const logoName = (logo && logo.name) ? logo.name : 'Custom Logo';
         return `
           <div class="T1_icon-custom T1_icon-uploaded" data-logo-category="${logoCategory}">
-            <img src="${state.iconAsset.url}" style="width:100%;height:100%;object-fit:contain" alt="${logoName}"/>
+            <img src="${state.iconAsset.url}" style="width:${state.iconStyle.size}px;height:${state.iconStyle.size}px;object-fit:contain" alt="${logoName}"/>
             <div class="T1_icon-overlay" style="opacity:0"></div>
           </div>`;
       }
@@ -297,13 +297,13 @@
       if (logo && logo.url) {
         return `
           <div class="T1_icon-custom T1_icon-uploaded" data-logo-category="${logo.category || 'default'}">
-            <img src="${logo.url}" style="width:100%;height:100%;object-fit:contain" alt="${logo.name}"/>
+            <img src="${logo.url}" style="width:${state.iconStyle.size}px;height:${state.iconStyle.size}px;object-fit:contain" alt="${logo.name}"/>
             <div class="T1_icon-overlay" style="opacity:0"></div>
           </div>`;
       } else {
         const svgContent = CUSTOM_LOGO_MAP[logoKey] || CUSTOM_LOGO_MAP["logo1"];
         const svgColor = state.colors.svgColor || getLighterColor(state.colors.textColor, 0.3);
-        const coloredSvgContent = svgContent.replace(/<svg/g, `<svg style="color: ${svgColor} !important; fill: ${svgColor} !important;"`);
+        const coloredSvgContent = svgContent.replace(/<svg/g, `<svg style="color: ${svgColor} !important; fill: ${svgColor} !important; width: ${state.iconStyle.size}px !important; height: ${state.iconStyle.size}px !important;"`);
         const logoCategory = (logo && logo.category) ? logo.category : 'default';
         return `
           <div class="T1_icon-custom" data-logo-category="${logoCategory}">
@@ -465,6 +465,13 @@
       height: ${state.iconStyle.size}px !important;
       max-width: 100% !important;
       max-height: 100% !important;
+    }
+    .T1_icon-container .T1_icon-custom img {
+      width: ${state.iconStyle.size}px !important;
+      height: ${state.iconStyle.size}px !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain !important;
     }
     .T1_icon-container svg {
       width: ${state.iconStyle.size}px !important;
@@ -1549,7 +1556,6 @@
     }
   }
 })(typeof window !== "undefined" ? window : globalThis);
-
 
 
 // Initialize the Template1
