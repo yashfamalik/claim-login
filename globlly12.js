@@ -1455,10 +1455,10 @@
     }
 
     // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initializeTemplates);
-    } else {
-      initializeTemplates();
-    }
+    // if (document.readyState === 'loading') {
+    //   document.addEventListener('DOMContentLoaded', initializeTemplates);
+    // } else {
+    //   initializeTemplates();
+    // }
   }
 })(typeof window !== "undefined" ? window : globalThis);
