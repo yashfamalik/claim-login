@@ -1,6 +1,6 @@
 (function (global) {
   "use strict";
-  
+
   // Template class definition - no auto-initialization
 
   // Self-contained color utility functions
@@ -77,10 +77,10 @@
     }
   };
   const { adjustColor, getDarkerColor, getLighterColor, hexToRgbaString } = colorUtils;
-  
+
   const d = (sel, root = document) => root.querySelector(sel);
   const da = (sel, root = document) => root.querySelectorAll(sel);
-  
+
   const SVG = {
     shield: `<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
     users: `<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">  <path d="M16 21V19C16 17.9391 15.5786 16.9217 14.8284 16.1716C14.0783 15.4214 13.0609 15 12 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>  <path d="M8.5 11C10.7091 11 12.5 9.20914 12.5 7C12.5 4.79086 10.7091 3 8.5 3C6.29086 3 4.5 4.79086 4.5 7C4.5 9.20914 6.29086 11 8.5 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>  <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>  <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89317 18.7122 8.75608 18.1676 9.45768C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
@@ -1423,20 +1423,19 @@
   // Make Template class available globally
   global.Template = Template;
 
-  // CONDITIONAL INITIALIZATION - Only initialize when explicitly called with container ID
-  // This prevents global auto-initialization and allows controlled rendering
-  global.initializeTemplate = function(containerId, options = {}) {
+  // CONDITIONAL INITIALIZATION - Initialize based on available containers
+  global.initializeTemplate = function (containerId, options = {}) {
     if (!containerId) {
       console.warn('Template initialization requires a container ID');
       return null;
     }
-    
+
     const container = document.getElementById(containerId);
     if (!container) {
       console.warn(`Template container with ID "${containerId}" not found`);
       return null;
     }
-    
+
     // Initialize the template with provided settings
     if (container && !container._templateInitialized) {
       try {
@@ -1451,43 +1450,82 @@
             console.log("Protection is now " + (enabled ? "enabled" : "disabled"));
           }
         };
-        
+
         const finalOptions = { ...defaultOptions, ...options };
         const instance = new Template(containerId, finalOptions);
-        
+
         container._templateInitialized = true;
         container._templateInstance = instance;
-        
+
         if (!global.TemplateInstances) global.TemplateInstances = {};
         global.TemplateInstances[containerId] = instance;
-        
+
         return instance;
       } catch (error) {
         console.error('Failed to initialize template:', error);
         return null;
       }
     }
-    
+
     return container._templateInstance || null;
   };
 
-  // Legacy support: Auto-initialize only if specifically requested
-  if (typeof document !== 'undefined' && global.autoInitializeTemplate) {
-    function legacyInitializeTemplates() {
+  // AUTO-INITIALIZATION - Smart initialization based on available containers
+  if (typeof document !== 'undefined') {
+    function initializeTemplates() {
+      // Priority 1: Check for preview_Template_widget (your project specific container)
+      const previewContainer = document.getElementById('preview_Template_widget');
+      if (previewContainer) {
+        // Only initialize in preview container if it exists
+        let templateContainer = previewContainer.querySelector('#Template-container');
+        if (!templateContainer) {
+          templateContainer = document.createElement('div');
+          templateContainer.id = 'Template-container';
+          templateContainer.className = 'Template-wrapper';
+          previewContainer.appendChild(templateContainer);
+        }
+        global.initializeTemplate('Template-container');
+        return; // Exit early, don't create global container
+      }
+
+      // Priority 2: Check for existing template-container
+      let container = document.getElementById('template-container');
+      if (container) {
+        global.initializeTemplate('template-container');
+        return;
+      }
+
+      // Priority 3: Create default container only if no specific containers exist
+      // This ensures it works in Shopify and other external environments
+      container = document.createElement('div');
+      container.id = 'template-container';
+      container.style.cssText = 'width: 100%; max-width: 500px; margin: 20px auto;';
+      document.body.appendChild(container);
       global.initializeTemplate('template-container');
     }
 
+    // Initialize when DOM is ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', legacyInitializeTemplates);
+      document.addEventListener('DOMContentLoaded', initializeTemplates);
     } else {
-      legacyInitializeTemplates();
+      initializeTemplates();
     }
   }
 })(typeof window !== "undefined" ? window : globalThis);
 
 
 
-
+// // Initialize the Template1
+// // document.addEventListener('DOMContentLoaded', function() {
+// //     const Template1 = Template1("Template1-container", {
+// //         activeTemplate1: "Template12",
+// //         isEnabled: true,
+// //         protectionPrice: 5.99,
+// //         onToggle: function(enabled) {
+// //             console.log("Protection is now " + (enabled ? "enabled" : "disabled"));
+// //         }
+// //     });
+// // });
 
 
 
