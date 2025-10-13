@@ -2,6 +2,10 @@
   "use strict";
 
   const { adjustColor, getDarkerColor, getLighterColor, hexToRgbaString } = global.colorUtils || {};
+  
+  // Ensure we have working color functions
+  const safeGetDarkerColor = getDarkerColor || fallbackGetDarkerColor;
+  const safeGetLighterColor = getLighterColor || fallbackGetLighterColor;
 
   const fallbackGetDarkerColor = (hex, amount = 0.2) => {
     if (!hex || typeof hex !== "string") return "#333333";
@@ -277,7 +281,7 @@
       } else {
         // Use built-in SVG logo
         const svgContent = CUSTOM_LOGO_MAP[logoKey] || CUSTOM_LOGO_MAP["logo1"];
-        const svgColor = state.colors.svgColor || getLighterColor(state.colors.textColor, 0.3);
+        const svgColor = state.colors.svgColor || safeGetLighterColor(state.colors.textColor, 0.3);
         const coloredSvgContent = svgContent.replace(/<svg/g, `<svg style="color: ${svgColor} !important; fill: ${svgColor} !important;"`);
         const logoCategory = (logo && logo.category) ? logo.category : 'default';
         return `
@@ -302,9 +306,7 @@
         </div>`;
     }
     function checkboxHTML() {
-      const darkerColorFn = getDarkerColor || fallbackGetDarkerColor;
-      const darkerTextColor = darkerColorFn(state.colors.textColor);
-      // const darkerTextColor = darkerColorFn(state.colors.textColor, 0.2);
+      const darkerTextColor = safeGetDarkerColor(state.colors.textColor, 0.2);
       return `
         <input type="checkbox" class="T1_checkbox" id="T1_protection_checkbox_${self.instanceId || Date.now()}" ${state.isEnabled ? "checked" : ""}/>
         <label for="T1_protection_checkbox_${self.instanceId || Date.now()}" style="cursor:pointer;margin-left:4px;font-size:12px;color:${darkerTextColor};"></label>
@@ -356,10 +358,8 @@
       const c = state.colors;
       const backgroundColor = c.useGradient ? c.gradientStart : c.backgroundColor;
       const textColor = c.textColor;
-      const darkerColorFn = getDarkerColor || fallbackGetDarkerColor;
-      const lighterColorFn = getLighterColor || fallbackGetLighterColor;
-      const darkerTextColor = darkerColorFn(textColor, 0.2);
-      const svgColor = c.svgColor || lighterColorFn(textColor, 0.3);
+      const darkerTextColor = safeGetDarkerColor(textColor, 0.2);
+      const svgColor = c.svgColor || safeGetDarkerColor(textColor, 0.3);
       s.textContent = `
     .T1_shipping-protection {
       background: ${c.useGradient ? `linear-gradient(135deg, ${c.gradientStart}, ${c.gradientEnd})` : c.backgroundColor};
@@ -732,7 +732,7 @@
       max-height: 100% !important;
     }
     .T1_icon-uploaded {
-      background: linear-gradient(135deg, ${state.iconStyle.background}, ${getLighterColor(state.iconStyle.background)});
+      background: linear-gradient(135deg, ${state.iconStyle.background}, ${safeGetLighterColor(state.iconStyle.background)});
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
     .T1_icon-custom:hover {
