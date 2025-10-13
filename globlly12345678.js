@@ -1522,7 +1522,7 @@
       // Priority 5: Create default container only for external environments (Shopify, etc.)
       container = document.createElement('div');
       container.id = 'template-container';
-      container.style.cssText = 'width: 100%; max-width: 500px; margin: 20px auto;';
+      container.style.cssText = 'width: 100%; max-width: 800px; margin: 20px auto;';
       document.body.appendChild(container);
       global.initializeTemplate('template-container');
     }
